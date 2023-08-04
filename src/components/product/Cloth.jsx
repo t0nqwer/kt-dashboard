@@ -38,8 +38,8 @@ const Cloth = () => {
     setProduct([]);
   }, []);
   useEffect(() => {
-    document.getElementById("search").value = search;
     fetchClothProduct(page, search, query);
+    document.getElementById("search").value = search;
   }, [page, search, query]);
   useEffect(() => {
     setLoad(loading);
@@ -137,7 +137,7 @@ const Cloth = () => {
       <Pagination
         page={page}
         pageAll={pageAll}
-        pathname={`${path}?search?${search}`}
+        pathname={`/product/cloth?search=${search}&query=${query}&`}
       />
     </div>
   );

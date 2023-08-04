@@ -12,6 +12,7 @@ import {
 import { ToastContainer, Flip } from "react-toastify";
 import {
   AddClothProduct,
+  AddDesign,
   AddExampleProduct,
   AddKhwantaProduct,
   Dashboard,
@@ -68,6 +69,7 @@ function App() {
               <Route path="/" element={<Navigate to={"/dashboard"} />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/design" element={<Design />} />
+              <Route path="/design/add" element={<AddDesign />} />
               <Route path="/design/:id" element={<SingleDesign />} />
               <Route path="/employee" element={<Employee />} />
               <Route

@@ -12,6 +12,9 @@
   .Toastify__progress-bar-theme--light {
     background: #a1000e !important;
   }
+  .input {
+    @apply grow p-2  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primary border-primary shadow-md rounded-md;
+  }
   html {
     font-family: Athiti;
     width: 100vw;

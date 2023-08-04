@@ -14,6 +14,8 @@ const useDesignStore = create((set) => ({
   singledata: null,
   loading: false,
   error: null,
+  adddata: null,
+  designData: {},
   fetchDesign: async (page, search) => {
     set({ loading: true });
     const response = await axios.get(
@@ -31,7 +33,22 @@ const useDesignStore = create((set) => ({
   },
   getAddDesign: async () => {
     set({ loading: true });
-    const response = await axios.get(`${url}/design/addDesign`);
+    try {
+      const { data } = await axios.get(`${url}/design/addDesign`);
+      console.log(data);
+      set((state) => ({
+        ...state,
+        loading: false,
+        adddata: data,
+        query: data.query,
+      }));
+    } catch (error) {
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
   },
   deleteDesign: async () => {
     set({ loading: true });

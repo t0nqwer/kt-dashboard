@@ -9,3 +9,4 @@ export { default as ProductNav } from "./product/ProductNav";
 export { default as Example } from "./product/Example";
 export { default as Cloth } from "./product/Cloth";
 export { default as Khwanta } from "./product/Khwanta";
+export { default as SelectInput } from "./Select";
