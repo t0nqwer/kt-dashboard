@@ -18,17 +18,24 @@ const useDesignStore = create((set) => ({
   designData: {},
   fetchDesign: async (page, search) => {
     set({ loading: true });
-    const response = await axios.get(
-      `${url}/design/getDesignList?page=${page}&search=${search}`
-    );
-    if (response.status === 200) {
-      set((state) => ({
-        ...state,
-        design: response.data.data,
-        pageAll: response.data.page.numberPage,
-        loading: false,
-        singledata: null,
-      }));
+
+    try {
+      
+      const response = await axios.get(
+        `${url}/design/getDesignList?page=${page}&search=${search}`
+      );
+      if (response.status === 200) {
+        set((state) => ({
+          ...state,
+          design: response.data.data,
+          pageAll: response.data.page.numberPage,
+          loading: false,
+          singledata: null,
+        }));
+      }
+    } catch (error) {
+      
+      set((state)=> ({...state,loading : false}))
     }
   },
   getAddDesign: async () => {

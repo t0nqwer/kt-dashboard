@@ -16,6 +16,8 @@ const useProductStore = create((set) => ({
   product: [],
   error: null,
   query: [],
+  adddata: null,
+
   setProduct: (data) => set((state) => ({ ...state, product: data })),
   fetchProduct: async (page, search) => {
     set({ loading: true });
@@ -132,7 +134,23 @@ const useProductStore = create((set) => ({
       });
     }
   },
-  getAddProduct: async () => {},
+  getAddProduct: async () => {
+    set((state)=>({...state, loading: true }));
+    try {
+      const { data } = await axios.get(`${url}/design/addDesign`);
+      set((state) => ({
+        ...state,
+        loading: false,
+        adddata: data,
+      }));
+    } catch (error) {
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
+    },
   addProduct: async (product) => {},
   addClothProduct: async (product) => {},
   addExampleProduct: async (product) => {},
