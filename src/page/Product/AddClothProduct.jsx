@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import React, { useEffect, useState, useRef } from "react";
 import { useAppState } from "../../zustand/appState";
 import useProductStore from "../../zustand/productState";
 import AddClothInfo from "../../components/addCloth/AddClothInfo";
 import AddClothImage from "../../components/addCloth/AddClothImage";
+=======
+import React from "react";
+import { useAppState } from "../../zustand/appState";
+import useProductStore from "../../zustand/productState";
+>>>>>>> 342068fa3071bf3c82daef192e88135f1c087748
 
 const AddClothProduct = () => {
   const setLoad = useAppState((state) => state.setLoad);

@@ -16,8 +16,13 @@ const useProductStore = create((set) => ({
   product: [],
   error: null,
   query: [],
+<<<<<<< HEAD
   addData: null,
   productData: {},
+=======
+  adddata: null,
+
+>>>>>>> 342068fa3071bf3c82daef192e88135f1c087748
   setProduct: (data) => set((state) => ({ ...state, product: data })),
   fetchProduct: async (page, search) => {
     set({ loading: true });
@@ -135,6 +140,7 @@ const useProductStore = create((set) => ({
     }
   },
   getAddProduct: async () => {
+<<<<<<< HEAD
     set({ loading: true });
     try {
       const { data } = await axios.get(`${url}/product/addproduct`);
@@ -153,6 +159,24 @@ const useProductStore = create((set) => ({
       });
     }
   },
+=======
+    set((state)=>({...state, loading: true }));
+    try {
+      const { data } = await axios.get(`${url}/design/addDesign`);
+      set((state) => ({
+        ...state,
+        loading: false,
+        adddata: data,
+      }));
+    } catch (error) {
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
+    },
+>>>>>>> 342068fa3071bf3c82daef192e88135f1c087748
   addProduct: async (product) => {},
   addClothProduct: async (product) => {},
   addExampleProduct: async (product) => {},
