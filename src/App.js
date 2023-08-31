@@ -17,6 +17,7 @@ import {
   AddKhwantaProduct,
   Dashboard,
   Design,
+  EditDesign,
   Employee,
   Event,
   Fabrics,
@@ -71,6 +72,7 @@ function App() {
               <Route path="/design" element={<Design />} />
               <Route path="/design/add" element={<AddDesign />} />
               <Route path="/design/:id" element={<SingleDesign />} />
+              <Route path="/design/edit/:id" element={<EditDesign />} />
               <Route path="/employee" element={<Employee />} />
               <Route
                 path="/product"

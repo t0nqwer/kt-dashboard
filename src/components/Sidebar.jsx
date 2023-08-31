@@ -23,7 +23,7 @@ const Sidebar = () => {
   const normalLink =
     "text-primary flex py-3  pl-3 space-x-5 text-xl items-center rounded-lg font-medium tracking-widest hover:bg-primary hover:text-secondary-cream";
   return (
-    <div className="h-screen shadow-md w-72 bg-secondary-cream shrink-0">
+    <div className="h-screen shadow-md select-none w-72 bg-secondary-cream shrink-0">
       <div className="flex flex-col h-full">
         <div className="p-5">
           <Logo fill={"#A1000E"} />

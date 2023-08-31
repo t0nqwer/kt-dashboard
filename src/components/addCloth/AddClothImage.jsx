@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import useDesignStore from "../../zustand/designState";
 import FrontImage from "../images/Front";
 import BackImage from "../images/Back";
 import DetailImage from "../images/Detail";
-
-const AddImage = () => {
+const AddClothImage = () => {
   const [FrontURL, setFrontURL] = useState("");
   const [BackURL, setBackURL] = useState("");
   const [DetailURL, setDetailURL] = useState([]);
   const [Front, setFront] = useState();
   const [Back, setBack] = useState();
   const [Detail, setDetail] = useState([]);
-
   const onSelectFrontFile = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setFront("");
@@ -38,13 +35,6 @@ const AddImage = () => {
       setFrontURL("");
       return;
     }
-    useDesignStore.setState((state) => ({
-      ...state,
-      designData: {
-        ...state.designData,
-        FrontImage: Front,
-      },
-    }));
     const objectUrl = URL.createObjectURL(Front);
     setFrontURL(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
@@ -54,13 +44,7 @@ const AddImage = () => {
       setDetailURL([]);
       return;
     }
-    useDesignStore.setState((state) => ({
-      ...state,
-      designData: {
-        ...state.designData,
-        DetailImage: Detail,
-      },
-    }));
+
     const objectUrl = Detail.map((e) => URL.createObjectURL(e));
     setDetailURL([...DetailURL, ...objectUrl]);
     return () => URL.revokeObjectURL(objectUrl);
@@ -70,13 +54,6 @@ const AddImage = () => {
       setBackURL("");
       return;
     }
-    useDesignStore.setState((state) => ({
-      ...state,
-      designData: {
-        ...state.designData,
-        BackImage: Back,
-      },
-    }));
     const objectUrl = URL.createObjectURL(Back);
     setBackURL(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
@@ -86,6 +63,7 @@ const AddImage = () => {
   };
   return (
     <div className="flex mb-10">
+      {" "}
       <FrontImage onSelectFrontFile={onSelectFrontFile} FrontURL={FrontURL} />
       <BackImage onSelectBackFile={onSelectBackFile} BackURL={BackURL} />
       <DetailImage
@@ -96,5 +74,4 @@ const AddImage = () => {
     </div>
   );
 };
-
-export default AddImage;
+export default AddClothImage;

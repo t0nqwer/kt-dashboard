@@ -8,12 +8,15 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { storage } from "../firebase";
-const useDesignStore = create((set) => ({
+import { uploadimage } from "../function/uploadimage";
+import { notify } from "../function/notification";
+const useDesignStore = create((set, get) => ({
   design: [],
   pageAll: 0,
   singledata: null,
   loading: false,
   error: null,
+  res: "",
   adddata: null,
   designData: {},
   fetchDesign: async (page, search) => {
@@ -35,7 +38,6 @@ const useDesignStore = create((set) => ({
     set({ loading: true });
     try {
       const { data } = await axios.get(`${url}/design/addDesign`);
-      console.log(data);
       set((state) => ({
         ...state,
         loading: false,
@@ -59,8 +61,40 @@ const useDesignStore = create((set) => ({
     const response = await axios.get(`${url}/design/updateDesign`);
   },
   createDesign: async () => {
+    const state = get();
     set({ loading: true });
-    const response = await axios.get(`${url}/design/createDesign`);
+    const upload = uploadimage(
+      "Design",
+      state.designData.FrontImage,
+      state.designData.BackImage,
+      state.designData.DetailImage,
+      state.designData.code
+    );
+    upload.then(async (result) => {
+      try {
+        const { data } = await axios.post(`${url}/design/createDesign`, {
+          data: state.designData,
+          image: result,
+        });
+        set((state) => ({
+          ...state,
+          loading: false,
+          res: data.message,
+        }));
+      } catch (error) {
+        const allimg = [...result[0], result[1], result[2]];
+        Promise.all(allimg.map((img) => deleteObject(ref(storage, img))))
+          .then((res) => {
+            console.log("res", res);
+            notify(error.response.data.error);
+            set((state) => ({
+              ...state,
+              loading: false,
+            }));
+          })
+          .catch((err) => notify(err));
+      }
+    });
   },
   addDetailImage: async (image, id) => {
     set((state) => ({ ...state, loading: true, error: null }));

@@ -57,7 +57,7 @@ const SingleDesign = () => {
               </div>
               <div
                 className="p-2 rounded hover:bg-secondary-red text-primary hover:text-secondary-light"
-                onClick={() => navigate(`/designedit/${id}`)}
+                onClick={() => navigate(`/design/edit/${id}`)}
               >
                 <BiEditAlt className="text-3xl cursor-pointer " />
               </div>

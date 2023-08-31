@@ -3,8 +3,8 @@ import Select from "../Select";
 import useDesignStore from "../../zustand/designState";
 
 const DesignInfo = ({ data, disable }) => {
-  const [code, setCode] = useState();
   const [name, setName] = useState();
+  const [code, setCode] = useState();
   const [brand, setBrand] = useState();
   const [category, setCategory] = useState();
   const [pattern, setPattern] = useState();
@@ -13,79 +13,56 @@ const DesignInfo = ({ data, disable }) => {
   const designData = useDesignStore((state) => state.designData);
 
   useEffect(() => {
-    console.log(designData);
-  }, [designData]);
-  useEffect(() => {
+    console.log(data);
     if (data) {
-      setCode(data?.code?.map((code) => code?.Code));
-      setBrand(data?.brand?.map((brand) => brand?.DesignBrand_Name));
-      setCategory(
-        data?.category?.map((category) => category?.Design_Category_Name)
-      );
-      setPattern(data?.pattern?.map((pattern) => pattern?.Pattern_Design_Name));
+      setBrand(data?.designBrand);
+      setCategory(data?.designCategory);
+      setPattern(data?.designPattern);
     }
   }, [data]);
 
   const chooseBrand = (message) => {
     if (message) {
-      const [brandData] = data?.brand?.filter(
-        (p) => p.DesignBrand_Name === message
-      );
-      if (brandData) {
-        useDesignStore.setState((state) => ({
-          ...state,
-          designData: {
-            ...state.designData,
-            brand: brandData.DesignBrand_ID,
-            brandname: brandData.DesignBrand_Name,
-          },
-        }));
-      }
+      useDesignStore.setState((state) => ({
+        ...state,
+        designData: {
+          ...state.designData,
+          brand: message,
+        },
+      }));
     }
   };
   const chooseCategory = (message) => {
     if (message) {
-      const [categoryData] = data?.category?.filter(
-        (p) => p.Design_Category_Name === message
-      );
-      if (categoryData) {
-        useDesignStore.setState((state) => ({
-          ...state,
-          designData: {
-            ...state.designData,
-            category: categoryData.Design_Category_ID,
-            categoryname: categoryData.Design_Category_Name,
-          },
-        }));
-      }
+      useDesignStore.setState((state) => ({
+        ...state,
+        designData: {
+          ...state.designData,
+          category: message,
+        },
+      }));
     }
   };
   const choosePattern = (message) => {
     if (message) {
-      const [patternData] = data?.pattern?.filter(
-        (p) => p.Pattern_Design_Name === message
-      );
-      if (patternData) {
-        useDesignStore.setState((state) => ({
-          ...state,
-          designData: {
-            ...state.designData,
-            pattern: patternData.Pattern_Design_ID,
-            patternname: patternData.Pattern_Design_Name,
-          },
-        }));
-      }
+      useDesignStore.setState((state) => ({
+        ...state,
+        designData: {
+          ...state.designData,
+          pattern: message,
+        },
+      }));
     }
   };
   const codeInput = (e) => {
-    const checkCode = data?.code?.filter((p) => p.Code === e.target.value);
-    if (checkCode.length > 0) {
-      disable(true);
-      setCodeError(true);
-    } else {
-      disable(false);
-      setCodeError(false);
-    }
+    // const checkCode = data?.code?.filter((p) => p.Code === e.target.value);
+    // if (checkCode.length > 0) {
+    //   disable(true);
+    //   setCodeError(true);
+    // } else {
+    //   disable(false);
+    //   setCodeError(false);
+    // }
     e.preventDefault();
     useDesignStore.setState((state) => ({
       ...state,

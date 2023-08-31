@@ -26,10 +26,10 @@ const Design = () => {
   const setLoad = useAppState((state) => state.setLoad);
   ////////////////////////////////
   useEffect(() => {
-    fetchDesign(page, search);
+    // fetchDesign(page, search);
   }, [page, search]);
   useEffect(() => {
-    setLoad(loading);
+    // setLoad(loading);
   }, [loading]);
 
   useEffect(() => {}, [design, pageAll]);
@@ -59,7 +59,7 @@ const Design = () => {
           className="px-5 py-2 text-white rounded-md bg-primary hover:bg-opacity-20 hover:text-primary"
           onClick={() => navigate("/design/add")}
         >
-          เพิ่มสินค้า
+          เพิ่มดีไซน์
         </button>
       </div>
       <div className="grid grid-cols-4 mt-5 gap-y-8">
