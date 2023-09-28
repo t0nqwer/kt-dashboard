@@ -17,9 +17,10 @@ const SingleDesign = () => {
     fetchSingleDesign(id);
   }, [id]);
   useEffect(() => {
-    const arr = [{ Size_ID: "" }];
-    setSizeList(arr.concat(singledata?.Size.map((e) => e)));
-    setSizedata(singledata?.Size[0]?.Size_De_Info);
+    console.log(singledata);
+    const arr = [""];
+    setSizeList(arr.concat(singledata?.size.map((e) => e.size)));
+    setSizedata(singledata?.size[0]?.details.map((e) => e.detail));
   }, [singledata]);
   useEffect(() => {
     setLoad(loading);
@@ -32,14 +33,14 @@ const SingleDesign = () => {
           <div>
             <div className="w-[315px] h-[420px] relative rounded overflow-hidden">
               <img
-                src={singledata?.Front_Img}
+                src={singledata?.design?.FrontImage}
                 className="absolute object-cover w-full h-full "
                 alt=""
               />
             </div>
             <div className="w-[315px] h-[420px] relative rounded overflow-hidden mt-3">
               <img
-                src={singledata?.Back_Img}
+                src={singledata?.design.BackImage}
                 className="absolute object-cover w-full h-full "
                 alt=""
               />
@@ -49,10 +50,10 @@ const SingleDesign = () => {
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-gray-800">
-                  {singledata?.Code}
+                  {singledata?.design.code}
                 </h1>
                 <p className="text-xl text-gray-600">
-                  {singledata?.Design_Name}
+                  {singledata?.design.name}
                 </p>
               </div>
               <div
@@ -66,19 +67,19 @@ const SingleDesign = () => {
               <div className="flex items-baseline justify-start mt-5 space-x-4 ">
                 <p className="text-lg text-gray-600">ประเภท</p>
                 <h1 className="text-xl font-bold text-gray-800">
-                  {singledata?.Category?.Design_Category_Name}
+                  {singledata?.design.category}
                 </h1>
               </div>
               <div className="flex items-baseline justify-start mt-5 space-x-4">
                 <p className="text-lg text-gray-600">ช่างแพทเทิร์น</p>
                 <h1 className="text-xl font-bold text-gray-800">
-                  {singledata?.Pattern?.Pattern_Design_Name}
+                  {singledata?.design.pattern}
                 </h1>
               </div>
               <div className="flex items-baseline justify-start mt-5 space-x-4 ">
                 <p className="text-lg text-gray-600">แบรนด์</p>
                 <h1 className="text-xl font-bold text-gray-800">
-                  {singledata?.Brand?.DesignBrand_Name}
+                  {singledata?.design.brand}
                 </h1>
               </div>
             </div>
@@ -94,7 +95,7 @@ const SingleDesign = () => {
             <div className="mt-5 border-t border-primary">
               <div className="mt-5 text-xl"> ผ้า </div>
               <div className="mt-4">
-                {singledata?.product.map((item) => (
+                {/* {singledata?.product.map((item) => (
                   <span
                     key={item.product_id}
                     className="px-3 py-2 mr-4 border rounded-md cursor-pointer hover:bg-primary border-primary hover:text-secondary-cream"
@@ -112,7 +113,7 @@ const SingleDesign = () => {
                       ? `${item.fabric.Pattern.FabricPatternName}`
                       : ""
                   }`}</span>
-                ))}
+                ))} */}
               </div>
             </div>
             <div className="border-t mt-7 border-primary">
@@ -124,10 +125,10 @@ const SingleDesign = () => {
                 </label>
               </div>
               <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
-                {singledata.Detail_img.map((item) => (
-                  <div key={item.Img_Url} className="w-[210px] h-[280px] p-3">
+                {singledata.design.DetailImage.map((item) => (
+                  <div key={item.url} className="w-[210px] h-[280px] p-3">
                     <img
-                      src={item.Img_Url}
+                      src={item.url}
                       className="object-cover w-full h-full"
                       alt=""
                     />

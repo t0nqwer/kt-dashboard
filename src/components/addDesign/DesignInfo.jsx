@@ -13,7 +13,6 @@ const DesignInfo = ({ data, disable }) => {
   const designData = useDesignStore((state) => state.designData);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setBrand(data?.designBrand);
       setCategory(data?.designCategory);
@@ -55,14 +54,6 @@ const DesignInfo = ({ data, disable }) => {
     }
   };
   const codeInput = (e) => {
-    // const checkCode = data?.code?.filter((p) => p.Code === e.target.value);
-    // if (checkCode.length > 0) {
-    //   disable(true);
-    //   setCodeError(true);
-    // } else {
-    //   disable(false);
-    //   setCodeError(false);
-    // }
     e.preventDefault();
     useDesignStore.setState((state) => ({
       ...state,
@@ -94,7 +85,7 @@ const DesignInfo = ({ data, disable }) => {
           type="text"
           name="code"
           onChange={codeInput}
-        />{" "}
+        />
         {codeError && (
           <p className="absolute text-xs text-red-500 right-2">
             รหัสมีในระบบแล้ว

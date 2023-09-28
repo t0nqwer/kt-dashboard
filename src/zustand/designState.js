@@ -23,22 +23,21 @@ const useDesignStore = create((set, get) => ({
     set({ loading: true });
 
     try {
-      
       const response = await axios.get(
-        `${url}/design/getDesignList?page=${page}&search=${search}`
+        `${url}/design/design?page=${page}&search=${search}`
       );
       if (response.status === 200) {
+        console.log(response.data.data);
         set((state) => ({
           ...state,
           design: response.data.data,
-          pageAll: response.data.page.numberPage,
+          pageAll: response.data.page,
           loading: false,
           singledata: null,
         }));
       }
     } catch (error) {
-      
-      set((state)=> ({...state,loading : false}))
+      set((state) => ({ ...state, loading: false }));
     }
   },
   getAddDesign: async () => {
@@ -79,7 +78,8 @@ const useDesignStore = create((set, get) => ({
     );
     upload.then(async (result) => {
       try {
-        const { data } = await axios.post(`${url}/design/createDesign`, {
+        console.log(result);
+        const { data } = await axios.post(`${url}/design/addDesign`, {
           data: state.designData,
           image: result,
         });
@@ -138,7 +138,7 @@ const useDesignStore = create((set, get) => ({
   },
   fetchSingleDesign: async (code) => {
     set({ loading: true });
-    const response = await axios.get(`${url}/design/singleDesign/${code}`);
+    const response = await axios.get(`${url}/design/${code}`);
     if (response.status === 200) {
       set((state) => ({
         ...state,

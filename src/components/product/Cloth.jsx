@@ -44,6 +44,9 @@ const Cloth = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
+  useEffect(() => {
+    console.log(product);
+  }, [product]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -117,22 +120,25 @@ const Cloth = () => {
       </div>
       {/* List */}
       <div className="grid grid-cols-4 mt-5 gap-y-8">
-        {product.map((item, index) => (
-          <div
-            key={item.Id}
-            className="p-3 mx-auto rounded-md cursor-pointer hover:shadow-md"
-            onClick={() => navigate(`/product/cloth/${item.Id}`)}
-          >
-            <Card
-              data={item}
-              img={item?.Front_Thumbnail}
-              Maintext={item?.code}
-              Subtext1={item?.designname}
-              Subtext2={item?.fabric}
-              Price={item?.price}
-            />
-          </div>
-        ))}
+        {product.map((item, index) => {
+          console.log(item);
+          return (
+            <div
+              key={item?._id}
+              className="p-3 mx-auto rounded-md cursor-pointer hover:shadow-md"
+              onClick={() => navigate(`/product/cloth/${item._id}`)}
+            >
+              <Card
+                data={item}
+                img={item?.frontImage}
+                Maintext={item?.design.code}
+                Subtext1={item?.fabric.name}
+                // Subtext2={item?.fabric}
+                Price={item?.price}
+              />
+            </div>
+          );
+        })}
       </div>
       <Pagination
         page={page}

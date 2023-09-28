@@ -1,53 +1,106 @@
 import React, { useEffect, useState } from "react";
 import Select from "../Select";
+import useProductStore from "../../zustand/productState";
 
 const AddClothInfo = ({ data, disable }) => {
-  console.log(data);
   const [ProductError, setProductError] = useState(false);
   const [code, setCode] = useState();
   const [fabric, setFabric] = useState();
+  const [designName, setDesignName] = useState("");
+  const [fabricName, setFabricName] = useState("");
+
+  const productData = useProductStore((state) => state.productData);
+
   useEffect(() => {
-    setCode(data.design.map((item) => item.Code));
-    setFabric(
-      data?.fabric?.map(
-        (e) =>
-          `ผ้า${e.Type.name}${e.Weaving.weaving_name}ย้อมสี${
-            e.Color.FabricColorTechnique_name
-          }${
-            e?.Pattern?.FabricPatternName ? e?.Pattern?.FabricPatternName : ""
-          }`
-      )
+    const [checkcode] = data?.design?.filter(
+      (e) => e.code === productData.code
     );
+    const [checkfabric] = data?.fabric?.filter(
+      (e) => e.name === productData.fabric
+    );
+    const checkProduct = data.product.filter(
+      (e) => e.design === checkcode?._id && e.fabric === checkfabric?._id
+    );
+    console.log(checkcode, checkfabric, checkProduct);
+    if (checkcode) {
+      setDesignName(checkcode.name);
+    } else {
+      setDesignName("");
+    }
+    if (checkfabric) {
+      setFabricName(checkfabric.name);
+    } else {
+      setFabricName("");
+    }
+    if (checkProduct.length >= 1) {
+      setProductError(true);
+      disable(true);
+    } else {
+      disable(false);
+      setProductError(false);
+    }
+  }, [productData]);
+  useEffect(() => {
+    setCode(data.design.map((item) => item.code));
+    setFabric(data?.fabric?.map((e) => e.name));
   }, [data]);
   const chooseCode = (message) => {
     if (message) {
-      const [Select] = data?.design.filter((p) => p?.Code === message);
-      // setInputdata({
-      //   ...Inputdata,
-      //   designName: Select?.Design_Name,
-      //   code: Select?.Code,
-      // });
+      useProductStore.setState((state) => ({
+        ...state,
+        productData: {
+          ...state.productData,
+          code: message,
+        },
+      }));
     }
     if (!message) {
-      // setInputdata({ ...Inputdata, designName: "", code: "" });
+      useProductStore.setState((state) => ({
+        ...state,
+        productData: {
+          ...state.productData,
+          code: "",
+        },
+      }));
     }
   };
   const chooseFabric = (message) => {
     if (message) {
-      const fabriccheck = data?.fabric?.map((e) => {
-        return {
-          name: `ผ้า${e.Type.name}${e.Weaving.weaving_name}ย้อมสี${e.Color.FabricColorTechnique_name}${
-            e?.Pattern?.FabricPatternName ? e?.Pattern?.FabricPatternName : ""
-          }`,
-          id: e.Fabric_ID,
-        };
-      });
-      const [Select] = fabriccheck.filter((p) => p?.name === message);
-      // setInputdata({ ...Inputdata, fabric: Select?.name, fabric_id: Select?.id });
+      useProductStore.setState((state) => ({
+        ...state,
+        productData: {
+          ...state.productData,
+          fabric: message,
+        },
+      }));
     }
     if (!message) {
-      // setInputdata({ ...Inputdata, fabric: "", fabric_id: "" });
+      useProductStore.setState((state) => ({
+        ...state,
+        productData: {
+          ...state.productData,
+          fabric: "",
+        },
+      }));
     }
+  };
+  const priceInput = (message) => {
+    useProductStore.setState((state) => ({
+      ...state,
+      productData: {
+        ...state.productData,
+        price: message.target.value,
+      },
+    }));
+  };
+  const descriptionInput = (message) => {
+    useProductStore.setState((state) => ({
+      ...state,
+      productData: {
+        ...state.productData,
+        description: message.target.value,
+      },
+    }));
   };
   const lableClassName = "w-32 text-right";
   const divclass =
@@ -60,11 +113,13 @@ const AddClothInfo = ({ data, disable }) => {
           className={`text-center ${ProductError ? "bg-red-200" : ""} input `}
           type="text"
           name="Product"
-          // onChange={ProductInput}
-        ></p>
+        >
+          {designName}
+          {fabricName}
+        </p>
         {ProductError && (
           <p className="absolute text-xs text-red-500 right-2">
-            รหัสมีในระบบแล้ว
+            สินค้ามีในระบบแล้ว
           </p>
         )}
       </div>
@@ -80,9 +135,9 @@ const AddClothInfo = ({ data, disable }) => {
         <p className={lableClassName}> ราคา : </p>
         <input
           className="text-center input"
-          type="text"
+          type="number"
           name="name"
-          // onChange={nameInput}
+          onChange={priceInput}
         />
       </div>
       <div className={divclass}>
@@ -91,7 +146,7 @@ const AddClothInfo = ({ data, disable }) => {
           className="text-center input"
           type="text"
           name="name"
-          // onChange={nameInput}
+          onChange={descriptionInput}
         />
       </div>
     </div>

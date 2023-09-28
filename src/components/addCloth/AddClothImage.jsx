@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FrontImage from "../images/Front";
 import BackImage from "../images/Back";
 import DetailImage from "../images/Detail";
+import useProductStore from "../../zustand/productState";
 const AddClothImage = () => {
   const [FrontURL, setFrontURL] = useState("");
   const [BackURL, setBackURL] = useState("");
@@ -35,6 +36,13 @@ const AddClothImage = () => {
       setFrontURL("");
       return;
     }
+    useProductStore.setState((state) => ({
+      ...state,
+      productData: {
+        ...state.productData,
+        FrontImage: Front,
+      },
+    }));
     const objectUrl = URL.createObjectURL(Front);
     setFrontURL(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
@@ -44,7 +52,13 @@ const AddClothImage = () => {
       setDetailURL([]);
       return;
     }
-
+    useProductStore.setState((state) => ({
+      ...state,
+      productData: {
+        ...state.productData,
+        DetailImage: Detail,
+      },
+    }));
     const objectUrl = Detail.map((e) => URL.createObjectURL(e));
     setDetailURL([...DetailURL, ...objectUrl]);
     return () => URL.revokeObjectURL(objectUrl);
@@ -54,6 +68,13 @@ const AddClothImage = () => {
       setBackURL("");
       return;
     }
+    useProductStore.setState((state) => ({
+      ...state,
+      productData: {
+        ...state.productData,
+        BackImage: Back,
+      },
+    }));
     const objectUrl = URL.createObjectURL(Back);
     setBackURL(objectUrl);
     return () => URL.revokeObjectURL(objectUrl);
@@ -63,7 +84,6 @@ const AddClothImage = () => {
   };
   return (
     <div className="flex mb-10">
-      {" "}
       <FrontImage onSelectFrontFile={onSelectFrontFile} FrontURL={FrontURL} />
       <BackImage onSelectBackFile={onSelectBackFile} BackURL={BackURL} />
       <DetailImage

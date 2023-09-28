@@ -26,12 +26,14 @@ const Design = () => {
   const setLoad = useAppState((state) => state.setLoad);
   ////////////////////////////////
   useEffect(() => {
-    // fetchDesign(page, search);
+    fetchDesign(page, search);
   }, [page, search]);
   useEffect(() => {
-    // setLoad(loading);
+    setLoad(loading);
   }, [loading]);
-
+  useEffect(() => {
+    console.log(design);
+  }, [design]);
   useEffect(() => {}, [design, pageAll]);
   const handleSearch = (e) => {
     e.preventDefault();
@@ -65,15 +67,15 @@ const Design = () => {
       <div className="grid grid-cols-4 mt-5 gap-y-8">
         {design.map((item, index) => (
           <div
-            key={item.Code}
+            key={item.code}
             className="p-3 mx-auto rounded-md cursor-pointer hover:shadow-md"
-            onClick={() => navigate(`/design/${item.Code}`)}
+            onClick={() => navigate(`/design/${item.code}`)}
           >
             <Card
               data={item}
-              img={item?.Front_Thumbnail}
-              Maintext={item?.Code}
-              Subtext1={item?.Design_Name}
+              img={item?.FrontImage}
+              Maintext={item?.code}
+              Subtext1={item?.name}
             />
           </div>
         ))}

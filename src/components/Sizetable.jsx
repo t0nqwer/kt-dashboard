@@ -1,6 +1,7 @@
 import React from "react";
 
 const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
+  console.log(data, SizeList, Sizedata);
   return (
     <table className={`overflow-scroll ${color ? color : ""} w-full mt-5`}>
       <thead>
@@ -11,10 +12,10 @@ const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
                 className={`${
                   font ? font : "text-base"
                 } font-semibold divide-y divide-dashed `}
-                id={e?.Size_ID ? e?.Size_ID : "lo"}
+                id={e ? e : "lo"}
                 key={i}
               >
-                {e?.Size_ID}
+                {e}
               </th>
             );
           })}
@@ -22,26 +23,26 @@ const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
       </thead>
       <tbody>
         {Sizedata?.map((e, i) => (
-          <tr key={e.Detail.Size_De_Name}>
+          <tr key={e}>
             <td
-              key={e.Detail.Size_De_ID}
+              key={e}
               className={`w-24 ${
                 fontsmall ? fontsmall : "text-sm"
               }  font-semibold text-center py-3`}
             >
-              {e.Detail.Size_De_Name}
+              {e}
             </td>
-            {data?.Size?.map((p, i) => {
-              return p?.Size_De_Info?.map((g, i) => {
-                if (g.Detail.Size_De_ID === e.Detail.Size_De_ID) {
+            {data?.size?.map((p, i) => {
+              return p?.details.map((g, i) => {
+                if (g.detail === e) {
                   return (
                     <td
-                      key={g.Size_De_Info_ID}
+                      key={g._id}
                       className={`w-24 ${
                         font ? font : "text-base"
                       } text-center`}
                     >
-                      {g.Info}
+                      {g.amount}
                     </td>
                   );
                 }

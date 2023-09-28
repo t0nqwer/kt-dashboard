@@ -8,21 +8,20 @@ import {
   deleteObject,
 } from "firebase/storage";
 import { storage } from "../firebase";
+import { uploadproductimage } from "../function/uploadimage";
+import { notify } from "../function/notification";
 
-const useProductStore = create((set) => ({
+const useProductStore = create((set, get) => ({
   loading: false,
   singledata: null,
   pageAll: 0,
   product: [],
   error: null,
   query: [],
-<<<<<<< HEAD
   addData: null,
   productData: {},
-=======
-  adddata: null,
+  res: {},
 
->>>>>>> 342068fa3071bf3c82daef192e88135f1c087748
   setProduct: (data) => set((state) => ({ ...state, product: data })),
   fetchProduct: async (page, search) => {
     set({ loading: true });
@@ -50,12 +49,13 @@ const useProductStore = create((set) => ({
       const { data } = await axios.get(
         `${url}/product/cloth?page=${page}&search=${search}&query=${query}`
       );
+      console.log(data.products);
       set({
         loading: false,
-        product: data.data,
-        pageAll: data.page,
+        product: data.products,
+        pageAll: data.pagecount,
         singledata: null,
-        query: data.query,
+        query: data?.query,
       });
     } catch (error) {
       set({
@@ -140,10 +140,9 @@ const useProductStore = create((set) => ({
     }
   },
   getAddProduct: async () => {
-<<<<<<< HEAD
     set({ loading: true });
     try {
-      const { data } = await axios.get(`${url}/product/addproduct`);
+      const { data } = await axios.get(`${url}/product/addClothProduct`);
       console.log(data);
       set({
         loading: false,
@@ -159,25 +158,43 @@ const useProductStore = create((set) => ({
       });
     }
   },
-=======
-    set((state)=>({...state, loading: true }));
-    try {
-      const { data } = await axios.get(`${url}/design/addDesign`);
-      set((state) => ({
-        ...state,
-        loading: false,
-        adddata: data,
-      }));
-    } catch (error) {
-      set((state) => ({
-        ...state,
-        loading: false,
-        error: error.response.data.message,
-      }));
-    }
-    },
->>>>>>> 342068fa3071bf3c82daef192e88135f1c087748
-  addProduct: async (product) => {},
+  addProduct: async (product) => {
+    const state = get();
+    set({ loading: true });
+    const upload = uploadproductimage(
+      "Product",
+      state.productData.FrontImage,
+      state.productData.BackImage,
+      state.productData.DetailImage,
+      `${state.productData.code}${state.productData.fabric}`
+    );
+    upload.then(async (result) => {
+      try {
+        const { data } = await axios.post(`${url}/product/addClothProduct`, {
+          data: state.productData,
+          image: result,
+        });
+        set((state) => ({
+          ...state,
+          loading: false,
+          res: data,
+        }));
+      } catch (error) {
+        console.log(error);
+        const allimg = [...result[0], result[1], result[2]];
+        Promise.all(allimg.map((img) => deleteObject(ref(storage, img))))
+          .then((res) => {
+            console.log("res", res);
+            notify(error.response.data.message);
+            set((state) => ({
+              ...state,
+              loading: false,
+            }));
+          })
+          .catch((err) => notify(err));
+      }
+    });
+  },
   addClothProduct: async (product) => {},
   addExampleProduct: async (product) => {},
   deleteProduct: async (id) => {},

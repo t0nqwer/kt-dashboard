@@ -3,7 +3,7 @@ import { Thai } from "../function/currency";
 
 const Card = ({ data, img, Maintext, Subtext1, Subtext2, Price }) => {
   return (
-    <div className="">
+    <div className="" key={data._id}>
       <div className="w-[350px] h-[466px] relative rounded-lg overflow-hidden bg-secondary-cream">
         <img src={img} className="absolute object-cover w-full h-full" alt="" />
       </div>

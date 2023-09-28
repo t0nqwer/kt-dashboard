@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
-const Select = ({ chooseMessage, Data, selectvalue }) => {
+const Select = ({ chooseMessage, Data, selectvalue, placeholder }) => {
   const [Selectvalue, setSelectvalue] = useState("");
   const [SearchData, setSearchData] = useState([]);
   const [Focus, setFocus] = useState(false);
@@ -89,6 +89,7 @@ const Select = ({ chooseMessage, Data, selectvalue }) => {
       <input
         className="w-full text-center input"
         value={Selectvalue}
+        placeholder={placeholder}
         onChange={(e) => setSelectvalue(e.target.value)}
         onFocus={() => setInputFocus(true)}
         onBlurCapture={(E) => {
