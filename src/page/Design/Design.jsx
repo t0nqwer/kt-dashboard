@@ -34,19 +34,24 @@ const Design = () => {
   useEffect(() => {
     console.log(design);
   }, [design]);
-  useEffect(() => {}, [design, pageAll]);
+  useEffect(() => {
+    const searchInput = document.getElementById("search");
+    console.log(searchInput);
+    searchInput.value = search;
+  }, [design, pageAll]);
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate(`/design?page=${page}&search=${searchInput.current.value}`);
+    navigate(`/design?page=${1}&search=${searchInput.current.value}`);
   };
 
   return (
     <div id="design" className="p-5 ">
-      <div className="sticky top-0 z-[2000] flex justify-center w-full space-x-10 ">
+      <div className="sticky top-2 z-[2000] flex justify-center w-full space-x-10 ">
         <div className=" rounded-lg overflow-hidden border bg-white border-primary text-xl py-2 px-3 md:w-[400px] w-full flex bg-primary-500 items-center text-secondary-primary">
           <form className=" grow" onSubmit={handleSearch}>
             <input
               type="text"
+              id="search"
               className="w-full pl-2 focus:outline-none"
               placeholder="ค้นหา...."
               ref={searchInput}
@@ -80,7 +85,11 @@ const Design = () => {
           </div>
         ))}
       </div>
-      <Pagination page={page} pageAll={pageAll} pathname={`/design?`} />
+      <Pagination
+        page={page}
+        pageAll={pageAll}
+        pathname={`/design?search=${search}&`}
+      />
     </div>
   );
 };
