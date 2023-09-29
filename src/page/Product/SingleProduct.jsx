@@ -50,7 +50,7 @@ const SingleProduct = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-800">
-                {singledata?.Title}
+                {singledata?.name}
               </h1>
             </div>
             <div
@@ -58,7 +58,7 @@ const SingleProduct = () => {
               onClick={() => navigate(`/designedit/${id}`)}
             >
               <p className="text-2xl font-bold text-gray-800">
-                {Thai.format(singledata?.Price)}
+                {Thai.format(singledata?.price)}
               </p>
               <div className="p-2 hover:bg-secondary-red text-primary hover:text-secondary-light">
                 <BiEditAlt className="text-xl cursor-pointer " />
@@ -69,13 +69,13 @@ const SingleProduct = () => {
             <div className="flex items-baseline justify-start mt-5 space-x-4 ">
               <p className="text-lg text-gray-600">แบรนด์</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.Supplier?.Name}
+                {singledata?.supplier?.name}
               </h1>
             </div>
             <div className="flex items-baseline justify-start mt-5 space-x-4">
               <p className="text-lg text-gray-600">ประเภท</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.product_category?.Product_Category_Name}
+                {singledata?.category?.name}
               </h1>
             </div>
           </div>

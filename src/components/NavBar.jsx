@@ -21,7 +21,7 @@ const NavBar = () => {
     setGreeding("สวัสดียามเย็น");
   }, []);
   useEffect(() => {
-    if (user === null) navigate("/login");
+    // if (user === null) navigate("/login");
     {
       greeding && user && notifyPray(` ${greeding} ${user.first_name_thai}`);
     }

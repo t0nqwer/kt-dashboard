@@ -12,8 +12,14 @@
   .Toastify__progress-bar-theme--light {
     background: #a1000e !important;
   }
+  .lableClassName {
+    @apply text-right max-lg:w-32 w-52;
+  }
+  .divclass {
+    @apply relative flex items-center w-1/2 py-3 space-x-4 text-lg max-lg:w-full;
+  }
   .input {
-    @apply grow p-2  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primary border-primary shadow-md rounded-md;
+    @apply p-2 rounded-md shadow-md grow focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primary border-primary;
   }
   html {
     font-family: Athiti;

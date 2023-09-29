@@ -5,13 +5,13 @@ export const uploadimage = (id, Front, Back, Detail, name) => {
   const promises = [];
   promises.push(uploadTaskDetail(), uploadTaskBack(), uploadTaskFront());
   async function uploadTaskDetail() {
+    if (!Detail) return;
     const uploadimg = Detail?.map(async (e, index) => {
       const fileRef = ref(storage, `${id}/detail/${name}-${index}-detail`);
       const uploadTaskSnapshot = await uploadBytes(fileRef, e);
       const downloadURL = await getDownloadURL(uploadTaskSnapshot.ref);
       return downloadURL;
     });
-
     const returndata = await Promise.all(uploadimg);
     return returndata;
   }
@@ -37,6 +37,8 @@ export const uploadproductimage = (id, Front, Back, Detail, name) => {
   const promises = [];
   promises.push(uploadTaskDetail(), uploadTaskBack(), uploadTaskFront());
   async function uploadTaskDetail() {
+    if (!Detail) return;
+
     const uploadimg = Detail?.map(async (e, index) => {
       const fileRef = ref(storage, `${id}/${name}/${name}-${index}-detail`);
       const uploadTaskSnapshot = await uploadBytes(fileRef, e);

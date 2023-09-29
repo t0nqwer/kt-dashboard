@@ -22,9 +22,9 @@ const SingleCloth = () => {
   }, [id]);
   useEffect(() => {
     console.log(singledata);
-    const arr = [{ Size_ID: "" }];
-    setSizeList(arr.concat(singledata?.design?.Size.map((e) => e)));
-    setSizedata(singledata?.design?.Size[0]?.Size_De_Info);
+    const arr = [""];
+    setSizeList(arr.concat(singledata?.size.map((e) => e.size)));
+    setSizedata(singledata?.size[0]?.details.map((e) => e.detail));
   }, [singledata]);
   useEffect(() => {
     setLoad(loading);
@@ -37,14 +37,14 @@ const SingleCloth = () => {
         <div>
           <div className="w-[315px] h-[420px] relative rounded overflow-hidden bg-secondary-cream">
             <img
-              src={singledata?.Front_img}
+              src={singledata?.frontImage}
               className="absolute object-contain w-full h-full "
               alt=""
             />
           </div>
           <div className="w-[315px] h-[420px] relative rounded overflow-hidden mt-3 bg-secondary-cream">
             <img
-              src={singledata?.Back_img}
+              src={singledata?.backImage}
               className="absolute object-contain w-full h-full "
               alt=""
             />
@@ -54,29 +54,13 @@ const SingleCloth = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-gray-800">
-                {singledata?.code}
+                {singledata?.design?.code}
               </h1>
               <p className="text-xl text-gray-600">
-                {singledata?.design?.Design_Name}
+                {singledata?.design?.name}
               </p>
               <p className="text-xl text-gray-600">
-                {singledata?.fabric?.Color?.FabricColorTechnique_ID !== 1
-                  ? `ผ้า${singledata?.fabric?.Type?.name}${
-                      singledata?.fabric?.Weaving?.weaving_name
-                    }ย้อมสี${
-                      singledata?.fabric?.Color?.FabricColorTechnique_name
-                    }${
-                      singledata?.fabric?.Pattern?.FabricPatternName
-                        ? singledata?.fabric?.Pattern?.FabricPatternName
-                        : ""
-                    }`
-                  : `ผ้า${singledata.fabric.Type.name}${
-                      singledata.fabric.Weaving.weaving_name
-                    }${
-                      singledata?.fabric?.Pattern?.FabricPatternName
-                        ? singledata?.fabric?.Pattern?.FabricPatternName
-                        : ""
-                    }`}
+                {singledata?.fabric?.name}
               </p>
             </div>
             <div
@@ -95,25 +79,25 @@ const SingleCloth = () => {
             <div className="flex items-baseline justify-start mt-5 space-x-4 ">
               <p className="text-lg text-gray-600">ประเภท</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.design?.Category?.Design_Category_Name}
+                {singledata?.design?.category}
               </h1>
             </div>
             <div className="flex items-baseline justify-start mt-5 space-x-4">
               <p className="text-lg text-gray-600">ช่างแพทเทิร์น</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.design?.Pattern?.Pattern_Design_Name}
+                {singledata?.design?.pattern}
               </h1>
             </div>
             <div className="flex items-baseline justify-start mt-5 space-x-4 ">
               <p className="text-lg text-gray-600">แบรนด์</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.design?.Brand?.DesignBrand_Name}
+                {singledata?.design?.brand}
               </h1>
             </div>
           </div>
           <div className="mt-5 border-t border-primary">
             <Sizetable
-              data={singledata?.design}
+              data={singledata}
               SizeList={SizeList}
               Sizedata={Sizedata}
               font={"text-xl"}
@@ -123,14 +107,14 @@ const SingleCloth = () => {
           <div className="mt-5 border-t border-primary">
             <div className="mt-5 text-xl"> Barcode </div>
             <div className="mt-4">
-              {singledata?.Stock_Info.map((item) => (
+              {/* {singledata?.Stock_Info.map((item) => (
                 <span
                   key={item.Barcode}
                   className="px-3 py-2 mr-4 border rounded-md cursor-pointer "
                 >
                   {item.Barcode}
                 </span>
-              ))}
+              ))} */}
             </div>
           </div>
           <div className="border-t mt-7 border-primary">
@@ -142,10 +126,10 @@ const SingleCloth = () => {
               </label>
             </div>
             <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
-              {singledata?.Product_Cloth_Detail.map((item) => (
-                <div key={item.Img_Url} className="w-[210px] h-[280px] p-3">
+              {singledata?.DetailImage?.map((item) => (
+                <div key={item} className="w-[210px] h-[280px] p-3">
                   <img
-                    src={item.Img_Url}
+                    src={item}
                     className="object-cover w-full h-full"
                     alt=""
                   />

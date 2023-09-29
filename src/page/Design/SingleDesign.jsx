@@ -126,9 +126,9 @@ const SingleDesign = () => {
               </div>
               <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
                 {singledata.design.DetailImage.map((item) => (
-                  <div key={item.url} className="w-[210px] h-[280px] p-3">
+                  <div key={item} className="w-[210px] h-[280px] p-3">
                     <img
-                      src={item.url}
+                      src={item}
                       className="object-cover w-full h-full"
                       alt=""
                     />

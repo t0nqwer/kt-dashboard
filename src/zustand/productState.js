@@ -76,6 +76,7 @@ const useProductStore = create((set, get) => ({
         pageAll: data.page,
         singledata: null,
         query: data.query,
+        res: {},
       });
     } catch (error) {
       set({
@@ -88,12 +89,14 @@ const useProductStore = create((set, get) => ({
     set({ loading: true });
     try {
       const { data } = await axios.get(`${url}/product/cloth/${id}`);
+
       set({
         loading: false,
         product: [],
         pageAll: null,
-        singledata: data.data,
+        singledata: data,
         query: null,
+        res: {},
       });
     } catch (error) {
       set({
@@ -112,6 +115,7 @@ const useProductStore = create((set, get) => ({
         pageAll: null,
         singledata: data.data,
         query: null,
+        res: {},
       });
     } catch (error) {
       set({
@@ -131,6 +135,7 @@ const useProductStore = create((set, get) => ({
         pageAll: null,
         singledata: data.data,
         query: null,
+        res: {},
       });
     } catch (error) {
       set({
@@ -149,7 +154,48 @@ const useProductStore = create((set, get) => ({
         product: [],
         pageAll: null,
         addData: data,
+        productData: {},
         query: null,
+      });
+    } catch (error) {
+      set({
+        loading: false,
+        error: error.response.data.message,
+      });
+    }
+  },
+  getAddExampleProduct: async () => {
+    set({ loading: true });
+    try {
+      const { data } = await axios.get(`${url}/product/addExampleProduct`);
+      console.log(data);
+      set({
+        loading: false,
+        product: [],
+        pageAll: null,
+        addData: data,
+        query: null,
+        productData: {},
+      });
+    } catch (error) {
+      set({
+        loading: false,
+        error: error.response.data.message,
+      });
+    }
+  },
+  getAddKhwantaProduct: async () => {
+    set({ loading: true });
+    try {
+      const { data } = await axios.get(`${url}/product/addOtherProduct`);
+      console.log(data);
+      set({
+        loading: false,
+        product: [],
+        pageAll: null,
+        addData: data,
+        query: null,
+        productData: {},
       });
     } catch (error) {
       set({
@@ -195,8 +241,80 @@ const useProductStore = create((set, get) => ({
       }
     });
   },
-  addClothProduct: async (product) => {},
-  addExampleProduct: async (product) => {},
+  addKhwantaProduct: async (product) => {
+    const state = get();
+    set({ loading: true });
+    const upload = uploadproductimage(
+      "Product",
+      state.productData.FrontImage,
+      state.productData.BackImage,
+      state.productData.DetailImage,
+      `${state.productData.name}${Date.now()}}`
+    );
+    upload.then(async (result) => {
+      try {
+        const { data } = await axios.post(`${url}/product/addOtherProduct`, {
+          data: state.productData,
+          image: result,
+        });
+        set((state) => ({
+          ...state,
+          loading: false,
+          res: data,
+        }));
+      } catch (error) {
+        console.log(error);
+        const allimg = [...result[0], result[1], result[2]];
+        Promise.all(allimg.map((img) => deleteObject(ref(storage, img))))
+          .then((res) => {
+            console.log("res", res);
+            notify(error.response.data.message);
+            set((state) => ({
+              ...state,
+              loading: false,
+            }));
+          })
+          .catch((err) => notify(err));
+      }
+    });
+  },
+  addExampleProduct: async (product) => {
+    const state = get();
+    set({ loading: true });
+    const upload = uploadproductimage(
+      "Product",
+      state.productData.FrontImage,
+      state.productData.BackImage,
+      state.productData.DetailImage,
+      `${state.productData.name}${Date.now()}}`
+    );
+    upload.then(async (result) => {
+      try {
+        const { data } = await axios.post(`${url}/product/addExampleProduct`, {
+          data: state.productData,
+          image: result,
+        });
+        set((state) => ({
+          ...state,
+          loading: false,
+          res: data,
+        }));
+      } catch (error) {
+        console.log(error);
+        const allimg = [...result[0], result[1], result[2]];
+        Promise.all(allimg.map((img) => deleteObject(ref(storage, img))))
+          .then((res) => {
+            console.log("res", res);
+            notify(error.response.data.message);
+            set((state) => ({
+              ...state,
+              loading: false,
+            }));
+          })
+          .catch((err) => notify(err));
+      }
+    });
+  },
   deleteProduct: async (id) => {},
   updatePrice: async (id, price) => {},
   addDetailImage: async (id, image) => {},

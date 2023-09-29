@@ -119,20 +119,20 @@ const Cloth = () => {
           ))}
       </div>
       {/* List */}
-      <div className="grid grid-cols-4 mt-5 gap-y-8">
-        {product.map((item, index) => {
+      <div className="grid mt-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 gap-y-8">
+        {product?.map((item, index) => {
           console.log(item);
           return (
             <div
               key={item?._id}
               className="p-3 mx-auto rounded-md cursor-pointer hover:shadow-md"
-              onClick={() => navigate(`/product/cloth/${item._id}`)}
+              onClick={() => navigate(`/product/cloth/${item?._id}`)}
             >
               <Card
                 data={item}
                 img={item?.frontImage}
-                Maintext={item?.design.code}
-                Subtext1={item?.fabric.name}
+                Maintext={item?.design?.code}
+                Subtext1={item?.fabric?.name}
                 // Subtext2={item?.fabric}
                 Price={item?.price}
               />
