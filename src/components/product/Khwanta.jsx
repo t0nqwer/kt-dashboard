@@ -37,6 +37,7 @@ const Khwanta = () => {
   }, []);
   useEffect(() => {
     fetchProduct(page, search);
+    document.getElementById("search").value = search;
   }, [page, search]);
   useEffect(() => {
     setLoad(loading);
@@ -75,17 +76,17 @@ const Khwanta = () => {
       <div className="grid grid-cols-4 mt-5 gap-y-8">
         {product.map((item, index) => (
           <div
-            key={item?.Id}
+            key={item?._id}
             className="p-3 mx-auto rounded-md cursor-pointer hover:shadow-md"
-            onClick={() => navigate(`/product/khwanta/${item?.Product_ID}`)}
+            onClick={() => navigate(`/product/khwanta/${item?._id}`)}
           >
             <Card
               data={item}
-              img={item?.Front_Thumbnail}
-              Maintext={item?.Title}
-              Subtext1={item?.Supplier?.Name}
-              Subtext2={item?.product_category?.Product_Category_Name}
-              Price={item?.Price}
+              img={item?.frontImage}
+              Maintext={item?.name}
+              Subtext1={item?.supplier}
+              Subtext2={item?.category}
+              Price={item?.price}
             />
           </div>
         ))}

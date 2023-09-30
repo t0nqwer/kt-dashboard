@@ -22,9 +22,7 @@ const SingleProduct = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-  useEffect(() => {
-    console.log(singledata);
-  }, [singledata]);
+
   ////////////////////////////////
   return (
     <div className="px-10 pb-10 ">
@@ -33,14 +31,14 @@ const SingleProduct = () => {
         <div>
           <div className="w-[315px] h-[420px] relative rounded overflow-hidden bg-secondary-cream">
             <img
-              src={singledata?.Front_img}
+              src={singledata?.frontImage}
               className="absolute object-contain w-full h-full "
               alt=""
             />
           </div>
           <div className="w-[315px] h-[420px] relative rounded overflow-hidden mt-3 bg-secondary-cream">
             <img
-              src={singledata?.Back_img}
+              src={singledata?.backImage}
               className="absolute object-contain w-full h-full "
               alt=""
             />
@@ -69,13 +67,13 @@ const SingleProduct = () => {
             <div className="flex items-baseline justify-start mt-5 space-x-4 ">
               <p className="text-lg text-gray-600">แบรนด์</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.supplier?.name}
+                {singledata?.supplier}
               </h1>
             </div>
             <div className="flex items-baseline justify-start mt-5 space-x-4">
               <p className="text-lg text-gray-600">ประเภท</p>
               <h1 className="text-xl font-bold text-gray-800">
-                {singledata?.category?.name}
+                {singledata?.category}
               </h1>
             </div>
           </div>
@@ -83,14 +81,9 @@ const SingleProduct = () => {
           <div className="mt-5 border-t border-primary">
             <div className="mt-5 text-xl"> Barcode </div>
             <div className="mt-4">
-              {singledata?.Stock_Info.map((item) => (
-                <span
-                  key={item.Barcode}
-                  className="px-3 py-2 mr-4 border rounded-md cursor-pointer "
-                >
-                  {item.Barcode}
-                </span>
-              ))}
+              <span className="px-3 py-2 mr-4 border rounded-md cursor-pointer ">
+                {singledata?.barcode.toUpperCase()}
+              </span>
             </div>
           </div>
           <div className="border-t mt-7 border-primary">
@@ -102,10 +95,10 @@ const SingleProduct = () => {
               </label>
             </div>
             <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
-              {singledata?.Product_Cloth_Detail?.map((item) => (
-                <div key={item.Img_Url} className="w-[210px] h-[280px] p-3">
+              {singledata?.DetailImage?.map((item) => (
+                <div key={item} className="w-[210px] h-[280px] p-3">
                   <img
-                    src={item.Img_Url}
+                    src={item}
                     className="object-cover w-full h-full"
                     alt=""
                   />

@@ -27,12 +27,13 @@ const useProductStore = create((set, get) => ({
     set({ loading: true });
     try {
       const { data } = await axios.get(
-        `${url}/product/khwanta?page=${page}&search=${search}`
+        `${url}/product/other?page=${page}&search=${search}`
       );
+
       set({
         loading: false,
-        product: data.data,
-        pageAll: data.page,
+        product: data.products,
+        pageAll: data.pagecount,
         singledata: null,
         query: data.query,
       });
@@ -49,7 +50,7 @@ const useProductStore = create((set, get) => ({
       const { data } = await axios.get(
         `${url}/product/cloth?page=${page}&search=${search}&query=${query}`
       );
-      console.log(data.products);
+
       set({
         loading: false,
         product: data.products,
@@ -72,8 +73,8 @@ const useProductStore = create((set, get) => ({
       );
       set({
         loading: false,
-        product: data.data,
-        pageAll: data.page,
+        product: data.products,
+        pageAll: data.pagecount,
         singledata: null,
         query: data.query,
         res: {},
@@ -127,13 +128,12 @@ const useProductStore = create((set, get) => ({
   fetchSingleKhwanta: async (id) => {
     set({ loading: true });
     try {
-      const { data } = await axios.get(`${url}/product/khwanta/${id}`);
-      console.log(data);
+      const { data } = await axios.get(`${url}/product/other/${id}`);
       set({
         loading: false,
         product: [],
         pageAll: null,
-        singledata: data.data,
+        singledata: data,
         query: null,
         res: {},
       });
@@ -148,7 +148,7 @@ const useProductStore = create((set, get) => ({
     set({ loading: true });
     try {
       const { data } = await axios.get(`${url}/product/addClothProduct`);
-      console.log(data);
+
       set({
         loading: false,
         product: [],
