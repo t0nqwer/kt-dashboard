@@ -1,12 +1,13 @@
 import React from "react";
-
+import { weights } from "../assets/public";
 const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
   console.log(data, SizeList, Sizedata);
+
   return (
     <table className={`overflow-scroll ${color ? color : ""} w-full mt-5`}>
       <thead>
         <tr>
-          {SizeList?.map((e, i) => {
+          {SizeList?.sort((a, b) => weights[a] - weights[b])?.map((e, i) => {
             return (
               <th
                 className={`${
@@ -22,7 +23,7 @@ const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
         </tr>
       </thead>
       <tbody>
-        {Sizedata?.map((e, i) => (
+        {Sizedata?.sort((a, b) => weights[a] - weights[b])?.map((e, i) => (
           <tr key={e}>
             <td
               key={e}
@@ -37,7 +38,7 @@ const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
                 if (g.detail === e) {
                   return (
                     <td
-                      key={g._id}
+                      key={`${g.detail}${g.amount}`}
                       className={`w-24 ${
                         font ? font : "text-base"
                       } text-center`}

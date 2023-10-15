@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 import { storage } from "../firebase";
 import { uploadimage } from "../function/uploadimage";
-import { notify } from "../function/notification";
+import { notify, notifySuccess } from "../function/notification";
 const useDesignStore = create((set, get) => ({
   design: [],
   pageAll: 0,
@@ -62,9 +62,27 @@ const useDesignStore = create((set, get) => ({
     set({ loading: true });
     const response = await axios.get(`${url}/design/deleteDesign/:id`);
   },
-  updateDesign: async () => {
+  updateDesign: async (code) => {
     set({ loading: true });
-    const response = await axios.get(`${url}/design/updateDesign`);
+    try {
+      const response = await axios.put(`${url}/design/${code}`, {
+        data: get().designData,
+      });
+      console.log(response);
+      notifySuccess(response.data.message);
+      set((state) => ({
+        ...state,
+        loading: false,
+        res: response.data.message,
+      }));
+    } catch (error) {
+      notify(error.response.data.message);
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
   },
   createDesign: async () => {
     const state = get();

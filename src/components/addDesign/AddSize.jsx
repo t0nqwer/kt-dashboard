@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useDesignStore from "../../zustand/designState";
 import { compare } from "../../function/array";
+import { weights } from "../../assets/public";
 const AddSize = ({ data, disable }) => {
   const [sizeList, setSizeList] = useState([]);
   const [sizeData, setSizeData] = useState([]);
@@ -67,13 +68,16 @@ const AddSize = ({ data, disable }) => {
     ]);
   };
   useEffect(() => {
-    useDesignStore.setState((state) => ({
-      ...state,
-      designData: {
-        ...state.designData,
-        sizeInput: sizeInputData,
-      },
-    }));
+    console.log(sizeInputData);
+    if (sizeInputData.length > 0) {
+      useDesignStore.setState((state) => ({
+        ...state,
+        designData: {
+          ...state.designData,
+          sizeInput: sizeInputData,
+        },
+      }));
+    }
   }, [sizeInputData]);
   console.log(data);
   return (
@@ -119,25 +123,27 @@ const AddSize = ({ data, disable }) => {
         </div>
       </div>
       <div>
-        {sizeList.map((e, index) => (
-          <div key={e} className="flex w-full px-5 mb-2 rounded-md shadow-md">
-            <h1 className="w-32 my-auto text-xl text-right">{e}</h1>
-            <div className="flex flex-wrap p-2 grow">
-              {sizeData.map((p, index) => (
-                <div key={p} className="flex items-center mb-2 w-96 ">
-                  <p className="w-48 text-right shrink-0">{p} : </p>
-                  <input
-                    id={`${e}-${p}`}
-                    className="ml-1 text-center input"
-                    type="text"
-                    name="code"
-                    onChange={sizeInput}
-                  />
-                </div>
-              ))}
+        {sizeList
+          ?.sort((a, b) => weights[a] - weights[b])
+          .map((e, index) => (
+            <div key={e} className="flex w-full px-5 mb-2 rounded-md shadow-md">
+              <h1 className="w-32 my-auto text-xl text-right">{e}</h1>
+              <div className="flex flex-wrap p-2 grow">
+                {sizeData.map((p, index) => (
+                  <div key={p} className="flex items-center mb-2 w-96 ">
+                    <p className="w-48 text-right shrink-0">{p} : </p>
+                    <input
+                      id={`${e}-${p}`}
+                      className="ml-1 text-center input"
+                      type="text"
+                      name="code"
+                      onChange={sizeInput}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

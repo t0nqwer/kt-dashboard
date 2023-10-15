@@ -73,7 +73,7 @@ const Khwanta = () => {
         </button>
       </div>
       {/* List */}
-      <div className="grid grid-cols-4 mt-5 gap-y-8">
+      <div className="product-grid">
         {product.map((item, index) => (
           <div
             key={item?._id}

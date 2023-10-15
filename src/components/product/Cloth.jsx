@@ -119,7 +119,7 @@ const Cloth = () => {
           ))}
       </div>
       {/* List */}
-      <div className="grid mt-5 2xl:grid-cols-4 xl:grid-cols-3 lg:grid-cols-3 md:grid-cols-3 gap-y-8">
+      <div className="product-grid">
         {product?.map((item, index) => {
           console.log(item);
           return (

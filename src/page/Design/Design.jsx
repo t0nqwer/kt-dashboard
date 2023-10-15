@@ -69,7 +69,7 @@ const Design = () => {
           เพิ่มดีไซน์
         </button>
       </div>
-      <div className="grid grid-cols-4 mt-5 gap-y-8">
+      <div className="product-grid">
         {design.map((item, index) => (
           <div
             key={item.code}
