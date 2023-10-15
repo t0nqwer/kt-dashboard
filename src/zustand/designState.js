@@ -68,12 +68,10 @@ const useDesignStore = create((set, get) => ({
       const response = await axios.put(`${url}/design/${code}`, {
         data: get().designData,
       });
-      console.log(response);
-      notifySuccess(response.data.message);
       set((state) => ({
         ...state,
         loading: false,
-        res: response.data.message,
+        res: response.data,
       }));
     } catch (error) {
       notify(error.response.data.message);
@@ -128,16 +126,15 @@ const useDesignStore = create((set, get) => ({
     const uploadTaskSnapshot = await uploadBytes(fileRef, file);
     getDownloadURL(uploadTaskSnapshot.ref).then(async (downloadURL) => {
       try {
-        const response = await axios.get(`${url}/design/addDetailImage`, {
+        const { data } = await axios.post(`${url}/design/image`, {
           id: id,
           img: downloadURL,
         });
         set((state) => ({
           ...state,
-          design: response.data.data,
-          pageAll: response.data.page.numberPage,
+
           loading: false,
-          singledata: null,
+          singledata: data.data,
         }));
       } catch (error) {
         deleteObject(ref(storage, downloadURL)).then(() => {
@@ -150,9 +147,17 @@ const useDesignStore = create((set, get) => ({
       }
     });
   },
-  deleteDetailImage: async () => {
+  deleteDetailImage: async (img, id) => {
     set({ loading: true });
-    const response = await axios.get(`${url}/design/deleteDetailImage`);
+    const { data } = await axios.put(`${url}/design/image`, {
+      id: id,
+      img: img,
+    });
+    set((state) => ({
+      ...state,
+      loading: false,
+      singledata: data.data,
+    }));
   },
   fetchSingleDesign: async (code) => {
     set({ loading: true });
@@ -162,6 +167,7 @@ const useDesignStore = create((set, get) => ({
         ...state,
         singledata: response.data.data,
         loading: false,
+        res: "",
       }));
     }
   },

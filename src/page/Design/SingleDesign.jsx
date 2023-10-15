@@ -12,6 +12,7 @@ const SingleDesign = () => {
   const loading = useDesignStore((state) => state.loading);
   const setLoad = useAppState((state) => state.setLoad);
   const fetchSingleDesign = useDesignStore((state) => state.fetchSingleDesign);
+  const addDetailImage = useDesignStore((state) => state.addDetailImage);
   const singledata = useDesignStore((state) => state.singledata);
   useEffect(() => {
     fetchSingleDesign(id);
@@ -25,7 +26,12 @@ const SingleDesign = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-  const addimage = () => {};
+  const addimage = (e) => {
+    addDetailImage(e.target.files[0], singledata?.design.code);
+  };
+  const submitdata = () => {
+    navigate("/design");
+  };
   return (
     <div className="px-10 pb-10 ">
       {singledata && (
@@ -120,7 +126,7 @@ const SingleDesign = () => {
               <div className="flex items-center justify-between">
                 <h1 className="mt-5 text-xl"> รูปราลละเอียด</h1>
                 <label className="p-2 mt-5 rounded hover:bg-secondary-red text-primary hover:text-secondary-light">
-                  <input type="file" hidden />
+                  <input type="file" hidden onChange={addimage} />
                   <BiPlus className="text-3xl cursor-pointer " />
                 </label>
               </div>
@@ -134,6 +140,17 @@ const SingleDesign = () => {
                     />
                   </div>
                 ))}
+              </div>
+            </div>
+            <div className="mt-5 border-t border-primary">
+              <div className="flex justify-end w-full mt-5 ">
+                <button
+                  id="submit"
+                  className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                  onClick={submitdata}
+                >
+                  Back
+                </button>
               </div>
             </div>
           </div>

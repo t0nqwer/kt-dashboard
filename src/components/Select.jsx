@@ -90,6 +90,7 @@ const Select = ({ chooseMessage, Data, selectvalue, placeholder }) => {
         className="w-full text-center input"
         value={Selectvalue}
         placeholder={placeholder}
+        onClick={() => setSelectvalue("")}
         onChange={(e) => setSelectvalue(e.target.value)}
         onFocus={() => setInputFocus(true)}
         onBlurCapture={(E) => {

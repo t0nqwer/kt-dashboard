@@ -33,22 +33,24 @@ const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
             >
               {e}
             </td>
-            {data?.size?.map((p, i) => {
-              return p?.details.map((g, i) => {
-                if (g.detail === e) {
-                  return (
-                    <td
-                      key={`${g.detail}${g.amount}`}
-                      className={`w-24 ${
-                        font ? font : "text-base"
-                      } text-center`}
-                    >
-                      {g.amount}
-                    </td>
-                  );
-                }
-              });
-            })}
+            {data?.size
+              .sort((a, b) => weights[a.size] - weights[b.size])
+              ?.map((p, i) => {
+                return p?.details.map((g, i) => {
+                  if (g.detail === e) {
+                    return (
+                      <td
+                        key={`${g.detail}${g.amount}`}
+                        className={`w-24 ${
+                          font ? font : "text-base"
+                        } text-center`}
+                      >
+                        {g.amount}
+                      </td>
+                    );
+                  }
+                });
+              })}
           </tr>
         ))}
       </tbody>
