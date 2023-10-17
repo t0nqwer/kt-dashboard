@@ -23,7 +23,7 @@ const EditDesign = () => {
   const [sizeInputData, setSizeInputData] = useState([]);
 
   const location = useLocation();
-  const chooseCode = (e) => {};
+
   ////////////////////////////////
   //ZUSTAND///////////////////////
   ////////////////////////////////

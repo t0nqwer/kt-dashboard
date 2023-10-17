@@ -13,7 +13,7 @@ const useEmployeeContext = create((set) => ({
   addEmployee: async (data) => {
     set((state) => ({ ...state, loading: true }));
 
-    const response = await axios.post(`${url}/user/create`, data);
+    const response = await axios.post(`${url}/user/register`, data);
     if (response.status === 200) {
       set((state) => ({ ...state, res: response.data, loading: false }));
     } else {
