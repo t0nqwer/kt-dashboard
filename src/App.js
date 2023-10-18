@@ -31,6 +31,7 @@ import {
 } from "./page";
 import { useAppState } from "./zustand/appState";
 import { notify, notifySuccess } from "./function/notification";
+import DeleteDesignDetailImage from "./components/modal/DeleteDesignDetailImage";
 
 function App() {
   const isLoad = useAppState((state) => state.isLoad);
@@ -46,6 +47,7 @@ function App() {
     <BrowserRouter>
       <div className="relative w-screen overflow-hidden">
         {isLoad && <Loading />}
+        <DeleteDesignDetailImage />
         <ToastContainer
           position="top-right"
           autoClose={5000}

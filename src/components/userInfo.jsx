@@ -33,9 +33,9 @@ const UserInfo = () => {
         />
         <div>
           <p className="text-xl font-semibold ">
-            {user?.first_name_thai} {user?.last_name_thai}
+            {user?.thaifirstname} {user?.thailastname}
           </p>
-          <p className="text-sm ">{user?.role?.name}</p>
+          <p className="text-sm ">{user?.role}</p>
         </div>
       </div>
       <div></div>

@@ -59,6 +59,7 @@ const useProductStore = create((set, get) => ({
         query: data?.query,
       });
     } catch (error) {
+      notify(error.response.data.error);
       set({
         loading: false,
         error: error.response.data.message,
@@ -145,7 +146,7 @@ const useProductStore = create((set, get) => ({
     }
   },
   getAddProduct: async () => {
-    set({ loading: true });
+    set({ loading: true, productData: {} });
     try {
       const { data } = await axios.get(`${url}/product/addClothProduct`);
 

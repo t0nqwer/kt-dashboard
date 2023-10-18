@@ -124,19 +124,65 @@ export const newlinks = [
     title: "Dashboard",
     icon: <MdDashboard />,
     pathname: "dashboard",
-    priority: 4,
+    priority: 0,
   },
   {
     title: "ดีไซน์",
     icon: <MdDesignServices />,
     pathname: "design",
     priority: 4,
+    subMenu: [
+      {
+        title: "ดูแบบเสื้อผ้า",
+        icon: <MdOutlineDesignServices />,
+        pathname: "design",
+      },
+      {
+        title: "เพิ่มแบบเสื้อผ้า",
+        icon: <MdPlaylistAdd />,
+        pathname: "design/add",
+      },
+    ],
   },
   {
     title: "สินค้า",
     icon: <GiClothes />,
     pathname: "product",
     priority: 4,
+    subMenu: [
+      {
+        title: "รายการเสื้อผ้า",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "product/cloth",
+      },
+
+      {
+        title: "รายการสินค้าอื่นๆ",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "product/khwanta",
+      },
+
+      {
+        title: "สินค้าตัวอย่าง",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "product/example",
+      },
+      {
+        title: "เพิ่มสินค้าเสื้อผ้า",
+        icon: <MdPlaylistAdd />,
+        pathname: "product/cloth/add",
+      },
+      {
+        title: "เพิ่มสินค้าอื่นๆ",
+        icon: <MdPlaylistAdd />,
+        pathname: "product/khwanta/add",
+      },
+      {
+        title: "เพิ่มสินค้าตัวอย่าง",
+        icon: <MdPlaylistAdd />,
+        pathname: "product/example/add",
+      },
+    ],
   },
   {
     title: "ผ้า",

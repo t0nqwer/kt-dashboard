@@ -4,11 +4,15 @@ import useDesignStore from "../../zustand/designState";
 import { useAppState } from "../../zustand/appState";
 import { Sizetable } from "../../components";
 import { BiEditAlt, BiPlus } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
 const SingleDesign = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [Sizedata, setSizedata] = useState([]);
   const [SizeList, setSizeList] = useState([]);
+  const [deleteImage, setDeleteImage] = useState("");
+  const deleteDetailImage = useDesignStore((state) => state.deleteDetailImage);
+
   const loading = useDesignStore((state) => state.loading);
   const setLoad = useAppState((state) => state.setLoad);
   const fetchSingleDesign = useDesignStore((state) => state.fetchSingleDesign);
@@ -132,7 +136,10 @@ const SingleDesign = () => {
               </div>
               <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
                 {singledata.design.DetailImage.map((item) => (
-                  <div key={item} className="w-[210px] h-[280px] p-3">
+                  <div key={item} className="relative w-[210px] h-[280px] p-3">
+                    <div className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 ">
+                      <AiOutlineClose />
+                    </div>
                     <img
                       src={item}
                       className="object-cover w-full h-full"

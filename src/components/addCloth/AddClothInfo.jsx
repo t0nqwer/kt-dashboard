@@ -12,11 +12,12 @@ const AddClothInfo = ({ data, disable }) => {
   const productData = useProductStore((state) => state.productData);
 
   useEffect(() => {
+    if (!productData?.code && !productData?.fabric) return;
     const [checkcode] = data?.design?.filter(
-      (e) => e.code === productData.code
+      (e) => e.code === productData?.code
     );
     const [checkfabric] = data?.fabric?.filter(
-      (e) => e.name === productData.fabric
+      (e) => e.name === productData?.fabric
     );
     const checkProduct = data.product.filter(
       (e) => e.design === checkcode?._id && e.fabric === checkfabric?._id
@@ -41,7 +42,8 @@ const AddClothInfo = ({ data, disable }) => {
     }
   }, [productData]);
   useEffect(() => {
-    setCode(data.design.map((item) => item.code));
+    console.log(data);
+    setCode(data?.design?.map((item) => item.code));
     setFabric(data?.fabric?.map((e) => e.name));
   }, [data]);
   const chooseCode = (message) => {

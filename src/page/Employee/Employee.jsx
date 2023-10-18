@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import useEmployeeContext from "../../zustand/employeeState";
 import { notify, notifySuccess } from "../../function/notification";
-
+import UserTable from "../../components/User/UserTable";
+import { useAppState } from "../../zustand/appState";
 const Employee = () => {
   const [data, setData] = useState({
     frist_thai: "",
@@ -10,17 +11,18 @@ const Employee = () => {
     last_eng: "",
     birthday: "",
   });
-  const employeeList = useEmployeeContext((state) => state.employeeList);
+  const setLoad = useAppState((state) => state.setLoad);
+
   const setRes = useEmployeeContext((state) => state.setRes);
   const addEmployee = useEmployeeContext((state) => state.addEmployee);
   const res = useEmployeeContext((state) => state.res);
+  const loading = useEmployeeContext((state) => state.loading);
   const lableClassName = "w-52 text-right";
   const divclass = "flex w-1/2  py-3 items-center space-x-4 text-lg";
   const inputClass =
     "grow p-2  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-primary border-primary shadow-md rounded-md";
   useEffect(() => {
     if (res === "Successfully created") {
-      notifySuccess(res);
       setData({
         frist_thai: "",
         frist_eng: "",
@@ -31,6 +33,9 @@ const Employee = () => {
       setRes("");
     }
   }, [res]);
+  useEffect(() => {
+    setLoad(loading);
+  }, [loading]);
   const submitdata = () => {
     const date = new Date();
     const now = `${date.getFullYear()}-${
@@ -62,7 +67,7 @@ const Employee = () => {
           <input
             className={inputClass}
             type="text"
-            name="name"
+            name="thaifirstname"
             value={data.frist_thai}
             onChange={(e) =>
               setData((prev) => ({ ...prev, frist_thai: e.target.value }))
@@ -74,7 +79,7 @@ const Employee = () => {
           <input
             className={inputClass}
             type="text"
-            name="lastname"
+            name="thailastname"
             value={data.last_thai}
             onChange={(e) =>
               setData((prev) => ({ ...prev, last_thai: e.target.value }))
@@ -87,7 +92,7 @@ const Employee = () => {
           <input
             className={inputClass}
             type="text"
-            name="name"
+            name="firstname"
             value={data.frist_eng}
             onChange={(e) =>
               setData((prev) => ({ ...prev, frist_eng: e.target.value }))
@@ -111,7 +116,7 @@ const Employee = () => {
           <input
             className={inputClass}
             type="date"
-            name="name"
+            name="birthday"
             value={data.birthday}
             onChange={(e) =>
               setData((prev) => ({ ...prev, birthday: e.target.value }))
@@ -127,6 +132,7 @@ const Employee = () => {
           </button>
         </div>
       </div>
+      <UserTable />
     </div>
   );
 };

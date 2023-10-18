@@ -6,24 +6,36 @@ import { useAppState } from "../zustand/appState";
 import { useNavigate } from "react-router-dom";
 import { notifyPray, notifySuccess } from "../function/notification";
 import UserInfo from "./userInfo";
+import axios from "axios";
 const NavBar = () => {
   const navigate = useNavigate();
   const user = useUserState((state) => state.user);
+  const token = useUserState((state) => state.token);
   const setNavbar = useAppState((state) => state.setNavbar);
   const activeNavbar = useAppState((state) => state.activeNavbar);
+  const checkTokenStatus = useUserState((state) => state.checkTokenStatus);
   const [greeding, setGreeding] = useState("");
   let now = new Date();
   let isMorning = now.getHours() > 5 && now.getHours() <= 12;
   let isAfternoon = now.getHours() > 12 && now.getHours() < 18;
   useEffect(() => {
+    if (user !== null) checkTokenStatus();
     if (isMorning) return setGreeding("อรุณสวัสดิ์");
     if (isAfternoon) return setGreeding("สวัสดียามบ่าย");
     setGreeding("สวัสดียามเย็น");
   }, []);
   useEffect(() => {
-    // if (user === null) navigate("/login");
+    if (user === null) {
+      axios.defaults.headers.common["Authorization"] = "";
+      axios.defaults.headers.common["Username"] = "";
+      navigate("/login");
+    }
     {
-      greeding && user && notifyPray(` ${greeding} ${user.first_name_thai}`);
+      greeding && user && notifyPray(` ${greeding} ${user.thaifirstname}`);
+      if (user) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        axios.defaults.headers.common["Username"] = `${user.username}`;
+      }
     }
   }, [user]);
   const handleClick = (e) => {
@@ -44,7 +56,7 @@ const NavBar = () => {
           <p>
             <span className="text-primary text-14">{greeding},</span>{" "}
             <span className="ml-1 font-semibold tracking-widest text-14">
-              {user && user.first_name_thai}
+              {user && user.thaifirstname}
             </span>
           </p>
           <MdKeyboardArrowDown className=" text-14" />

@@ -37,6 +37,7 @@ const useDesignStore = create((set, get) => ({
         }));
       }
     } catch (error) {
+      notify(error.response.data.error);
       set((state) => ({ ...state, loading: false }));
     }
   },
