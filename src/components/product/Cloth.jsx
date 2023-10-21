@@ -44,9 +44,6 @@ const Cloth = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -121,7 +118,6 @@ const Cloth = () => {
       {/* List */}
       <div className="product-grid">
         {product?.map((item, index) => {
-          console.log(item);
           return (
             <div
               key={item?._id}

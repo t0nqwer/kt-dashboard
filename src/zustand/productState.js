@@ -9,7 +9,7 @@ import {
 } from "firebase/storage";
 import { storage } from "../firebase";
 import { uploadproductimage } from "../function/uploadimage";
-import { notify } from "../function/notification";
+import { notify, notifySuccess } from "../function/notification";
 
 const useProductStore = create((set, get) => ({
   loading: false,
@@ -21,7 +21,7 @@ const useProductStore = create((set, get) => ({
   addData: null,
   productData: {},
   res: {},
-
+  DetailImage: "",
   setProduct: (data) => set((state) => ({ ...state, product: data })),
   fetchProduct: async (page, search) => {
     set({ loading: true });
@@ -317,9 +317,89 @@ const useProductStore = create((set, get) => ({
     });
   },
   deleteProduct: async (id) => {},
-  updatePrice: async (id, price) => {},
-  addDetailImage: async (id, image) => {},
-  deleteDetailImage: async (id, image) => {},
+  updatePrice: async (price) => {
+    const state = get();
+    set({ loading: true });
+    try {
+      const { data } = await axios.put(`${url}/product/updatePrice`, {
+        id: state.singledata._id,
+        price,
+      });
+      if (data.message === "success") {
+        set({ loading: false, singledata: { ...state.singledata, price } });
+      }
+    } catch (error) {
+      set({ loading: false, error: error.response.data.message });
+    }
+  },
+  setDetailImage: (image) => {
+    set((state) => ({ ...state, DetailImage: image }));
+  },
+  addDetailImage: async (image, id) => {
+    const statedata = get();
+    console.log(id);
+    set((state) => ({ ...state, loading: true, error: null }));
+    const file = image;
+    const fileRef = ref(storage, `Product/${id}/DetailImage/${new Date()}`);
+    const uploadTaskSnapshot = await uploadBytes(fileRef, file);
+    getDownloadURL(uploadTaskSnapshot.ref)
+      .then(async (downloadURL) => {
+        try {
+          const { data } = await axios.post(`${url}/product/detailimage`, {
+            id: id,
+            img: downloadURL,
+          });
+          console.log([...statedata.singledata.DetailImage, downloadURL]);
+          set((state) => ({
+            ...state,
+            loading: false,
+            singledata: {
+              ...statedata.singledata,
+              DetailImage: [...statedata.singledata.DetailImage, downloadURL],
+            },
+          }));
+        } catch (error) {
+          console.log(error);
+          deleteObject(ref(storage, downloadURL)).then(() => {
+            set((state) => ({
+              ...state,
+              error: error.response.data.message,
+              loading: false,
+            }));
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  },
+  deleteDetailImage: async (id, image) => {
+    const state = get();
+    set({ loading: true });
+    try {
+      const { data } = await axios.put(`${url}/product/detailimage`, {
+        id: state.singledata?._id,
+        img: state.DetailImage,
+      });
+      notifySuccess("ลบรูปภาพสำเร็จ");
+      set((state) => ({
+        ...state,
+        loading: false,
+        singledata: {
+          ...state.singledata,
+          DetailImage: state.singledata.DetailImage.filter(
+            (img) => img !== state.DetailImage
+          ),
+        },
+        detailImage: "",
+      }));
+    } catch (error) {
+      console.log(error);
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
+  },
 }));
 
 export default useProductStore;

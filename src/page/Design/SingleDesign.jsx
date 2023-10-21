@@ -5,6 +5,7 @@ import { useAppState } from "../../zustand/appState";
 import { Sizetable } from "../../components";
 import { BiEditAlt, BiPlus } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
+import useModalControlState from "../../zustand/modalControlState";
 const SingleDesign = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -18,6 +19,10 @@ const SingleDesign = () => {
   const fetchSingleDesign = useDesignStore((state) => state.fetchSingleDesign);
   const addDetailImage = useDesignStore((state) => state.addDetailImage);
   const singledata = useDesignStore((state) => state.singledata);
+  const setDetailImage = useDesignStore((state) => state.setDetailImage);
+  const setDeleteDesignDetailImage = useModalControlState(
+    (state) => state.setDeleteDesignDetailImage
+  );
   useEffect(() => {
     fetchSingleDesign(id);
   }, [id]);
@@ -137,7 +142,13 @@ const SingleDesign = () => {
               <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
                 {singledata.design.DetailImage.map((item) => (
                   <div key={item} className="relative w-[210px] h-[280px] p-3">
-                    <div className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 ">
+                    <div
+                      className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 "
+                      onClick={() => {
+                        setDetailImage(item);
+                        setDeleteDesignDetailImage(true);
+                      }}
+                    >
                       <AiOutlineClose />
                     </div>
                     <img

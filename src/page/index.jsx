@@ -22,3 +22,18 @@ export { default as AddKhwantaProduct } from "./Product/AddKhwantaProduct";
 export { default as AddExampleProduct } from "./Product/AddExampleProduct";
 export { default as AddClothProduct } from "./Product/AddClothProduct";
 export { default as AddProduct } from "./Product/AddProduct";
+////////////////////////////////////////////
+/////FABRIC/////////////////////////////////
+////////////////////////////////////////////
+export { default as AddFabric } from "./Fabric/AddFabric";
+export { default as AddPattern } from "./Fabric/AddPattern";
+export { default as AddWeaving } from "./Fabric/AddWeaving";
+////////////////////////////////////////////
+/////ORDER/////////////////////////////////
+////////////////////////////////////////////
+
+////////////////////////////////////////////
+/////STORE/////////////////////////////////
+////////////////////////////////////////////
+export { default as Store } from "./Event/Store";
+export { default as AddEvent } from "./Event/AddEvent";

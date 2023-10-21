@@ -36,8 +36,8 @@ const UserState = persist(
           ...state,
           loading: false,
         }));
-        console.log(error.response.data.error);
-        notify(error.response.data.error);
+        console.log(error.response.data.message);
+        notify(error.response.data.message);
       }
     },
     Logout: () => {
@@ -50,7 +50,7 @@ const UserState = persist(
     checkTokenStatus: async () => {
       const token = get().token;
       set((state) => ({ ...state, loading: true }));
-      console.log("checkTokenStatus");
+
       if (!token) {
         set((state) => ({ ...state, loading: false }));
         return;
@@ -59,7 +59,7 @@ const UserState = persist(
       axios.defaults.headers.common["Username"] = `${get().user.username}`;
       try {
         const response = await axios.get(`${url}/user/checkTokenStatus`);
-        console.log(response);
+
         set((state) => ({
           ...state,
           loading: false,

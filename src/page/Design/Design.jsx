@@ -31,12 +31,10 @@ const Design = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-  useEffect(() => {
-    console.log(design);
-  }, [design]);
+  useEffect(() => {}, [design]);
   useEffect(() => {
     const searchInput = document.getElementById("search");
-    console.log(searchInput);
+
     searchInput.value = search;
   }, [design, pageAll]);
   const handleSearch = (e) => {

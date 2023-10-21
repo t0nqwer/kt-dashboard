@@ -189,6 +189,18 @@ export const newlinks = [
     icon: <GiRolledCloth />,
     pathname: "fabric",
     priority: 4,
+    subMenu: [
+      {
+        title: "รายการผ้า",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "/fabric",
+      },
+      {
+        title: "เพิ่มผ้า",
+        icon: <MdPlaylistAdd />,
+        pathname: "/fabric/add",
+      },
+    ],
   },
   {
     title: "Order",
@@ -197,9 +209,21 @@ export const newlinks = [
     priority: 4,
   },
   {
-    title: "Event",
+    title: "Shop",
     icon: <AiFillShop />,
-    pathname: "event",
+    pathname: "shop",
+    priority: 4,
+  },
+  {
+    title: "Customer",
+    icon: <AiFillShop />,
+    pathname: "customer",
+    priority: 4,
+  },
+  {
+    title: "Stock",
+    icon: <AiFillShop />,
+    pathname: "stock",
     priority: 4,
   },
   {

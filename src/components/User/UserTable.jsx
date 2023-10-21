@@ -11,7 +11,7 @@ const UserTable = () => {
   React.useEffect(() => {
     fetchEmployeeList();
   }, []);
-  console.log(employeeList);
+
   return (
     <div className="w-full mt-10">
       <table className="w-full text-center">

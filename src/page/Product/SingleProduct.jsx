@@ -4,6 +4,9 @@ import { useAppState } from "../../zustand/appState";
 import { BiEditAlt, BiPlus } from "react-icons/bi";
 import useProductStore from "../../zustand/productState";
 import { Thai } from "../../function/currency";
+import { AiOutlineClose } from "react-icons/ai";
+
+import useModalControlState from "../../zustand/modalControlState";
 
 const SingleProduct = () => {
   const navigate = useNavigate();
@@ -15,6 +18,14 @@ const SingleProduct = () => {
   const fetchSingleKhwanta = useProductStore(
     (state) => state.fetchSingleKhwanta
   );
+  const setChangeProductClothPrice = useModalControlState(
+    (state) => state.setChangeProductClothPrice
+  );
+  const addDetailImage = useProductStore((state) => state.addDetailImage);
+  const setDetailImage = useProductStore((state) => state.setDetailImage);
+  const setDeleteProductDetailImage = useModalControlState(
+    (state) => state.setDeleteProductDetailImage
+  );
   ///////////////////////////////
   useEffect(() => {
     fetchSingleKhwanta(id);
@@ -22,7 +33,10 @@ const SingleProduct = () => {
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-
+  const addimage = (e) => {
+    console.log(singledata);
+    addDetailImage(e.target.files[0], singledata?._id);
+  };
   ////////////////////////////////
   return (
     <div className="px-10 pb-10 ">
@@ -51,14 +65,16 @@ const SingleProduct = () => {
                 {singledata?.name}
               </h1>
             </div>
-            <div
-              className="flex items-center justify-center p-2 space-x-5 rounded "
-              onClick={() => navigate(`/designedit/${id}`)}
-            >
+            <div className="flex items-center justify-center p-2 space-x-5 rounded ">
               <p className="text-2xl font-bold text-gray-800">
                 {Thai.format(singledata?.price)}
               </p>
-              <div className="p-2 hover:bg-secondary-red text-primary hover:text-secondary-light">
+              <div
+                className="p-2 cursor-pointer hover:bg-secondary-red text-primary hover:text-secondary-light"
+                onClick={() => {
+                  setChangeProductClothPrice(true);
+                }}
+              >
                 <BiEditAlt className="text-xl cursor-pointer " />
               </div>
             </div>
@@ -90,13 +106,22 @@ const SingleProduct = () => {
             <div className="flex items-center justify-between">
               <h1 className="mt-5 text-xl"> รูปราลละเอียด</h1>
               <label className="p-2 mt-5 rounded hover:bg-secondary-red text-primary hover:text-secondary-light">
-                <input type="file" hidden />
+                <input type="file" hidden onChange={addimage} />
                 <BiPlus className="text-3xl cursor-pointer " />
               </label>
             </div>
             <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
               {singledata?.DetailImage?.map((item) => (
-                <div key={item} className="w-[210px] h-[280px] p-3">
+                <div key={item} className=" relative w-[210px] h-[280px] p-3">
+                  <div
+                    className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 "
+                    onClick={() => {
+                      setDetailImage(item);
+                      setDeleteProductDetailImage(true);
+                    }}
+                  >
+                    <AiOutlineClose />
+                  </div>
                   <img
                     src={item}
                     className="object-cover w-full h-full"

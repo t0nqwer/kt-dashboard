@@ -1,8 +1,6 @@
 import React from "react";
 import { weights } from "../assets/public";
 const Sizetable = ({ data, SizeList, Sizedata, font, fontsmall, color }) => {
-  console.log(data, SizeList, Sizedata);
-
   return (
     <table className={`overflow-scroll ${color ? color : ""} w-full mt-5`}>
       <thead>

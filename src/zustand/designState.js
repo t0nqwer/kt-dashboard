@@ -19,6 +19,7 @@ const useDesignStore = create((set, get) => ({
   res: "",
   adddata: null,
   designData: {},
+  detailImage: "",
   fetchDesign: async (page, search) => {
     set({ loading: true });
 
@@ -27,7 +28,6 @@ const useDesignStore = create((set, get) => ({
         `${url}/design/design?page=${page}&search=${search}`
       );
       if (response.status === 200) {
-        console.log(response.data.data);
         set((state) => ({
           ...state,
           design: response.data.data,
@@ -149,16 +149,28 @@ const useDesignStore = create((set, get) => ({
     });
   },
   deleteDetailImage: async (img, id) => {
+    const state = get();
     set({ loading: true });
-    const { data } = await axios.put(`${url}/design/image`, {
-      id: id,
-      img: img,
-    });
-    set((state) => ({
-      ...state,
-      loading: false,
-      singledata: data.data,
-    }));
+    try {
+      const { data } = await axios.put(`${url}/design/image`, {
+        id: state.singledata?.design.code,
+        img: state.detailImage,
+      });
+      notifySuccess("ลบรูปภาพสำเร็จ");
+      set((state) => ({
+        ...state,
+        loading: false,
+        singledata: data.data,
+        detailImage: "",
+      }));
+    } catch (error) {
+      console.log(error);
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
   },
   fetchSingleDesign: async (code) => {
     set({ loading: true });
@@ -171,6 +183,9 @@ const useDesignStore = create((set, get) => ({
         res: "",
       }));
     }
+  },
+  setDetailImage: (img) => {
+    set((state) => ({ ...state, detailImage: img }));
   },
 }));
 

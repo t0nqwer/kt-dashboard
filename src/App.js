@@ -13,8 +13,12 @@ import { ToastContainer, Flip } from "react-toastify";
 import {
   AddClothProduct,
   AddDesign,
+  AddEvent,
   AddExampleProduct,
+  AddFabric,
   AddKhwantaProduct,
+  AddPattern,
+  AddWeaving,
   Dashboard,
   Design,
   EditDesign,
@@ -28,15 +32,38 @@ import {
   SingleDesign,
   SingleExample,
   SingleProduct,
+  Store,
 } from "./page";
 import { useAppState } from "./zustand/appState";
 import { notify, notifySuccess } from "./function/notification";
-import DeleteDesignDetailImage from "./components/modal/DeleteDesignDetailImage";
+import useModalControlState from "./zustand/modalControlState";
+import {
+  ChangeProductClothPrice,
+  DeleteProductDetailImage,
+  DeleteDesignDetailImage,
+  FabricPattern,
+  FabricWeaving,
+} from "./components/modal";
 
 function App() {
   const isLoad = useAppState((state) => state.isLoad);
   // const scrollToTop = useAppState((state) => state.scrollToTop);
 
+  const deleteDesignDetailImage = useModalControlState(
+    (state) => state.deleteDesignDetailImage
+  );
+  const ChangeProductClothPriceModal = useModalControlState(
+    (state) => state.ChangeProductClothPriceModal
+  );
+  const DeleteProductDetailImageModal = useModalControlState(
+    (state) => state.DeleteProductDetailImageModal
+  );
+  const FabricPatternModal = useModalControlState(
+    (state) => state.FabricPatternModal
+  );
+  const FabricWeavingModal = useModalControlState(
+    (state) => state.FabricWeavingModal
+  );
   useEffect(() => {
     document
       .getElementById("main")
@@ -47,7 +74,6 @@ function App() {
     <BrowserRouter>
       <div className="relative w-screen overflow-hidden">
         {isLoad && <Loading />}
-        <DeleteDesignDetailImage />
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -61,6 +87,11 @@ function App() {
           pauseOnHover
           theme="light"
         />
+        {deleteDesignDetailImage && <DeleteDesignDetailImage />}
+        {ChangeProductClothPriceModal && <ChangeProductClothPrice />}
+        {DeleteProductDetailImageModal && <DeleteProductDetailImage />}
+        {FabricPatternModal && <FabricPattern />}
+        {FabricWeavingModal && <FabricWeaving />}
         <div className="flex w-full overflow-hidden">
           <Sidebar />
           <div
@@ -96,8 +127,15 @@ function App() {
               <Route path="/product/khwanta/:id" element={<SingleProduct />} />
               <Route path="/product/example/:id" element={<SingleExample />} />
               <Route path="fabric" element={<Fabrics />} />
+              <Route path="fabric/add" element={<AddFabric />} />
+              <Route path="fabric/addpattern" element={<AddPattern />} />
+              <Route path="fabric/addweaving" element={<AddWeaving />} />
+
               <Route path="order" element={<Order />} />
-              <Route path="event" element={<Event />} />
+              <Route path="shop" element={<Store />} />
+              <Route path="shop" element={<Store />} />
+              <Route path="shop/addEvent" element={<AddEvent />} />
+
               <Route path="/login" element={<Login />} />
             </Routes>
           </div>
