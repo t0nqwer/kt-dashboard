@@ -130,7 +130,7 @@ export const newlinks = [
     title: "ดีไซน์",
     icon: <MdDesignServices />,
     pathname: "design",
-    priority: 4,
+    priority: 0,
     subMenu: [
       {
         title: "ดูแบบเสื้อผ้า",
@@ -148,7 +148,7 @@ export const newlinks = [
     title: "สินค้า",
     icon: <GiClothes />,
     pathname: "product",
-    priority: 4,
+    priority: 0,
     subMenu: [
       {
         title: "รายการเสื้อผ้า",
@@ -188,7 +188,7 @@ export const newlinks = [
     title: "ผ้า",
     icon: <GiRolledCloth />,
     pathname: "fabric",
-    priority: 4,
+    priority: 0,
     subMenu: [
       {
         title: "รายการผ้า",
@@ -206,30 +206,30 @@ export const newlinks = [
     title: "Order",
     icon: <MdShoppingCart />,
     pathname: "order",
-    priority: 4,
+    priority: 0,
   },
   {
     title: "Shop",
     icon: <AiFillShop />,
     pathname: "shop",
-    priority: 4,
+    priority: 0,
   },
   {
     title: "Customer",
     icon: <AiFillShop />,
     pathname: "customer",
-    priority: 4,
+    priority: 0,
   },
   {
     title: "Stock",
     icon: <AiFillShop />,
     pathname: "stock",
-    priority: 4,
+    priority: 0,
   },
   {
     title: "Employee",
     icon: <GiOrganigram />,
     pathname: "employee",
-    priority: 3,
+    priority: 1,
   },
 ];

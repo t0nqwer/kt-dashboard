@@ -19,6 +19,7 @@ import {
   AddKhwantaProduct,
   AddPattern,
   AddWeaving,
+  Customer,
   Dashboard,
   Design,
   EditDesign,
@@ -32,6 +33,7 @@ import {
   SingleDesign,
   SingleExample,
   SingleProduct,
+  Stock,
   Store,
 } from "./page";
 import { useAppState } from "./zustand/appState";
@@ -133,8 +135,10 @@ function App() {
 
               <Route path="order" element={<Order />} />
               <Route path="shop" element={<Store />} />
-              <Route path="shop" element={<Store />} />
               <Route path="shop/addEvent" element={<AddEvent />} />
+
+              <Route path="stock" element={<Stock />} />
+              <Route path="customer" element={<Customer />} />
 
               <Route path="/login" element={<Login />} />
             </Routes>

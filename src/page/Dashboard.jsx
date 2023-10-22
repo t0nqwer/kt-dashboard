@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import useUserState from "../zustand/userState";
 import { useNavigate } from "react-router-dom";
 import { useAppState } from "../zustand/appState";
+import FirstSection from "../components/dashboard/FirstSection";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -11,7 +12,11 @@ const Dashboard = () => {
   useEffect(() => {
     setPathname("dashboard");
   }, []);
-  return <div>Dashboard</div>;
+  return (
+    <div className="maindiv">
+      <FirstSection />
+    </div>
+  );
 };
 
 export default Dashboard;

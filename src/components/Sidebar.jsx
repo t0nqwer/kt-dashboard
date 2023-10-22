@@ -34,19 +34,15 @@ const Sidebar = () => {
         </div>
         <ul className="flex flex-col justify-center py-2 space-y-2 px-7 grow">
           {newlinks.map((link, index) => {
-            // if (!user.priority && link.priority !== 0) return;
-            if (link.priority < user?.priority) return;
+            if (link.priority > user?.priority) return;
             if (!link.subMenu) {
               return (
                 <li
-                  // to={link.pathname}
                   key={index}
                   className={
                     pathname === `${link.pathname}`
                       ? liactiveLink
                       : linormalLink
-                    // linormalLink
-                    // "relative group px-3 py-2"
                   }
                 >
                   <NavLink
@@ -63,12 +59,9 @@ const Sidebar = () => {
             }
             return (
               <li
-                // to={link.pathname}
                 key={index}
                 className={
                   pathname === `${link.pathname}` ? liactiveLink : linormalLink
-                  // linormalLink
-                  // "relative group px-3 py-2"
                 }
               >
                 {link.icon}
@@ -93,11 +86,6 @@ const Sidebar = () => {
                             onMouseOver={(e) => {
                               e.currentTarget.style.backgroundColor = `rgba(255 ,255 ,255`;
                             }}
-                            // onMouseOut={(e) => {
-                            //   e.target.style.backgroundColor = `rgba(161 ,0 ,14,${
-                            //     (index + 1) / 10
-                            //   }`;
-                            // }}
                             onMouseLeave={(e) => {
                               e.currentTarget.style.backgroundColor = `rgba(161 ,0 ,14,${
                                 (index + 1) / 10
