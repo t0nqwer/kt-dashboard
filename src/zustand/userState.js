@@ -10,12 +10,22 @@ const UserState = persist(
     token: null,
     setLoading: (value) => set((state) => ({ ...state, loading: value })),
     Login: async (name, password) => {
+      const baseOptions: AxiosRequestConfig = {
+        proxy: false,
+        httpsAgent: "http://157.245.195.154/",
+        httpAgent: " http://157.245.195.154/",
+      };
+
       set((state) => ({ ...state, loading: true }));
       try {
-        const response = await axios.post(`${url}/user/login`, {
-          username: name,
-          password,
-        });
+        const response = await axios.post(
+          `${url}/user/login`,
+          {
+            username: name,
+            password,
+          },
+          baseOptions
+        );
         if (response.data.user) {
           axios.defaults.headers.common[
             "Authorization"

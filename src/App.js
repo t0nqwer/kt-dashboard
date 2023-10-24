@@ -46,6 +46,7 @@ import {
   FabricPattern,
   FabricWeaving,
 } from "./components/modal";
+import useUserState from "./zustand/userState";
 
 function App() {
   const isLoad = useAppState((state) => state.isLoad);
@@ -71,6 +72,7 @@ function App() {
       .getElementById("main")
       .scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [isLoad]);
+  const user = useUserState((state) => state.user);
 
   return (
     <BrowserRouter>
@@ -102,6 +104,7 @@ function App() {
           >
             <Navbar />
             <Routes>
+              {!user && <Route path="/login" element={<Login />} />}
               <Route path="/" element={<Navigate to={"/dashboard"} />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/design" element={<Design />} />
