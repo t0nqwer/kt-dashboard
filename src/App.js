@@ -19,6 +19,7 @@ import {
   AddKhwantaProduct,
   AddPattern,
   AddWeaving,
+  CreateOrder,
   Customer,
   Dashboard,
   Design,
@@ -137,6 +138,8 @@ function App() {
               <Route path="fabric/addweaving" element={<AddWeaving />} />
 
               <Route path="order" element={<Order />} />
+              <Route path="order/create" element={<CreateOrder />} />
+
               <Route path="shop" element={<Store />} />
               <Route path="shop/addEvent" element={<AddEvent />} />
 
