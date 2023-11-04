@@ -203,28 +203,50 @@ export const newlinks = [
     ],
   },
   {
-    title: "Order",
+    title: "การขาย",
     icon: <MdShoppingCart />,
-    pathname: "order",
+    pathname: "fabric",
     priority: 0,
-  },
-  {
-    title: "Shop",
-    icon: <AiFillShop />,
-    pathname: "shop",
-    priority: 0,
-  },
-  {
-    title: "Customer",
-    icon: <AiFillShop />,
-    pathname: "customer",
-    priority: 0,
+    subMenu: [
+      {
+        title: "ออเดอร์",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "/order",
+      },
+      {
+        title: "ลูกค้า",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "/customer",
+      },
+      {
+        title: "ร้านค้า",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "/shop",
+      },
+      {
+        title: "โปรโมชั่น",
+        icon: <MdPlaylistAdd />,
+        pathname: "/fabric/add",
+      },
+    ],
   },
   {
     title: "Stock",
     icon: <AiFillShop />,
     pathname: "stock",
     priority: 0,
+    subMenu: [
+      {
+        title: "ส่งสินค้า",
+        icon: <AiOutlineUnorderedList />,
+        pathname: "/order",
+      },
+      {
+        title: "สต๊อคสินค้า",
+        icon: <MdPlaylistAdd />,
+        pathname: "/fabric/add",
+      },
+    ],
   },
   {
     title: "Employee",
