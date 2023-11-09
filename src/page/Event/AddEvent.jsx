@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Select from "../../components/Select";
 import useShopState from "../../zustand/shopState";
 import { useAppState } from "../../zustand/appState";
-const shoptype = ["store", "event"];
+const shoptype = ["store", "event", "warehouse"];
 const AddEvent = () => {
   const navigate = useNavigate();
   const [FrontURL, setFrontURL] = useState("");

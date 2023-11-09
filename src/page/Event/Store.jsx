@@ -21,14 +21,7 @@ const Store = () => {
 
   return (
     <div className="maindiv">
-      <h1 className="mb-5 text-3xl text-primary">Store</h1>
-      <div className="grid grid-cols-4 gap-4">
-        {Shop.map((item) => {
-          if (item.type === "store")
-            return <ShopCard key={item._id} item={item} />;
-        })}
-      </div>
-      <div className="flex justify-between mt-12 mb-5 ">
+      <div className="flex justify-between mt-5 mb-5 ">
         <h1 className="text-3xl text-primary">Event</h1>
         <div className="flex items-center justify-end w-full ">
           <button
@@ -40,9 +33,25 @@ const Store = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4 mb-5 ">
         {Shop.map((item) => {
           if (item.type === "event")
+            return <ShopCard key={item._id} item={item} />;
+        })}
+      </div>
+
+      <h1 className="mb-5 text-3xl text-primary">Store</h1>
+
+      <div className="grid grid-cols-4 gap-4">
+        {Shop.map((item) => {
+          if (item.type === "store")
+            return <ShopCard key={item._id} item={item} />;
+        })}
+      </div>
+      <h1 className="mt-5 mb-5 text-3xl text-primary">Warehouse</h1>
+      <div className="grid grid-cols-4 gap-4">
+        {Shop.map((item) => {
+          if (item.type === "warehouse")
             return <ShopCard key={item._id} item={item} />;
         })}
       </div>
