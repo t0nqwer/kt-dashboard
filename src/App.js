@@ -20,6 +20,7 @@ import {
   AddPattern,
   AddWeaving,
   CreateOrder,
+  CreateTransfer,
   Customer,
   Dashboard,
   Design,
@@ -30,12 +31,14 @@ import {
   Login,
   Order,
   Product,
+  Promotion,
   SingleCloth,
   SingleDesign,
   SingleExample,
   SingleProduct,
   Stock,
   Store,
+  TransferProduct,
 } from "./page";
 import { useAppState } from "./zustand/appState";
 import { notify, notifySuccess } from "./function/notification";
@@ -137,14 +140,19 @@ function App() {
               <Route path="fabric/addpattern" element={<AddPattern />} />
               <Route path="fabric/addweaving" element={<AddWeaving />} />
 
-              <Route path="order" element={<Order />} />
-              <Route path="order/create" element={<CreateOrder />} />
-
-              <Route path="shop" element={<Store />} />
-              <Route path="shop/addEvent" element={<AddEvent />} />
+              <Route path="sale/order" element={<Order />} />
+              <Route path="sale/order/create" element={<CreateOrder />} />
+              <Route path="sale/shop" element={<Store />} />
+              <Route path="sale/shop/addEvent" element={<AddEvent />} />
+              <Route path="sale/customer" element={<Customer />} />
+              <Route path="sale/promotion" element={<Promotion />} />
 
               <Route path="stock" element={<Stock />} />
-              <Route path="customer" element={<Customer />} />
+              <Route path="stock/transfer" element={<TransferProduct />} />
+              <Route
+                path="stock/transfer/create"
+                element={<CreateTransfer />}
+              />
 
               <Route path="/login" element={<Login />} />
             </Routes>

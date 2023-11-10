@@ -8,7 +8,6 @@ const useEmployeeContext = create((set) => ({
   employeeList: [],
   res: "",
   setRes: (res) => set((state) => ({ ...state, res })),
-
   getAddEmployee: async () => {},
   updateEmployee: async () => {},
   addEmployee: async (data) => {

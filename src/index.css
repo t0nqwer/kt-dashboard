@@ -30,6 +30,9 @@
   .hoverable {
     position: static;
   }
+  .btn {
+    @apply px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray;
+  }
 
   .hoverable > a:after {
     content: "\25BC";

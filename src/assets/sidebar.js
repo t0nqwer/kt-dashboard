@@ -205,28 +205,28 @@ export const newlinks = [
   {
     title: "การขาย",
     icon: <MdShoppingCart />,
-    pathname: "fabric",
+    pathname: "sale",
     priority: 0,
     subMenu: [
       {
         title: "ออเดอร์",
         icon: <AiOutlineUnorderedList />,
-        pathname: "/order",
+        pathname: "/sale/order",
       },
       {
         title: "ลูกค้า",
         icon: <AiOutlineUnorderedList />,
-        pathname: "/customer",
+        pathname: "/sale/customer",
       },
       {
         title: "ร้านค้า",
         icon: <AiOutlineUnorderedList />,
-        pathname: "/shop",
+        pathname: "/sale/shop",
       },
       {
         title: "โปรโมชั่น",
         icon: <MdPlaylistAdd />,
-        pathname: "/fabric/add",
+        pathname: "/sale/promotion",
       },
     ],
   },
@@ -239,12 +239,12 @@ export const newlinks = [
       {
         title: "ส่งสินค้า",
         icon: <AiOutlineUnorderedList />,
-        pathname: "/order",
+        pathname: "/stock/transfer",
       },
       {
         title: "สต๊อคสินค้า",
         icon: <MdPlaylistAdd />,
-        pathname: "/fabric/add",
+        pathname: "/stock",
       },
     ],
   },
