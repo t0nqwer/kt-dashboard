@@ -6,6 +6,8 @@ import { Sizetable } from "../../components";
 import { BiEditAlt, BiPlus } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import useModalControlState from "../../zustand/modalControlState";
+import useUserState from "../../zustand/userState";
+
 const SingleDesign = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -14,12 +16,14 @@ const SingleDesign = () => {
   const [deleteImage, setDeleteImage] = useState("");
   const deleteDetailImage = useDesignStore((state) => state.deleteDetailImage);
 
+  const user = useUserState((state) => state.user);
   const loading = useDesignStore((state) => state.loading);
   const setLoad = useAppState((state) => state.setLoad);
   const fetchSingleDesign = useDesignStore((state) => state.fetchSingleDesign);
   const addDetailImage = useDesignStore((state) => state.addDetailImage);
   const singledata = useDesignStore((state) => state.singledata);
   const setDetailImage = useDesignStore((state) => state.setDetailImage);
+  const deleteDesign = useDesignStore((state) => state.deleteDesign);
   const setDeleteDesignDetailImage = useModalControlState(
     (state) => state.setDeleteDesignDetailImage
   );
@@ -161,7 +165,7 @@ const SingleDesign = () => {
               </div>
             </div>
             <div className="mt-5 border-t border-primary">
-              <div className="flex justify-end w-full mt-5 ">
+              <div className="flex justify-end w-full mt-5 space-x-5 ">
                 <button
                   id="submit"
                   className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
@@ -169,6 +173,15 @@ const SingleDesign = () => {
                 >
                   Back
                 </button>
+                {user?.priority >= 1 && (
+                  <button
+                    id="submit"
+                    className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                    onClick={() => deleteDesign(singledata.design.code)}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           </div>

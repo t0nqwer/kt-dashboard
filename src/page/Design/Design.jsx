@@ -76,7 +76,7 @@ const Design = () => {
           >
             <Card
               data={item}
-              img={item?.FrontImage}
+              img={item.frontthumbnail ? item.frontthumbnail : item?.FrontImage}
               Maintext={item?.code}
               Subtext1={item?.name}
             />

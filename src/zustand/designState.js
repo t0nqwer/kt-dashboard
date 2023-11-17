@@ -187,6 +187,25 @@ const useDesignStore = create((set, get) => ({
   setDetailImage: (img) => {
     set((state) => ({ ...state, detailImage: img }));
   },
+  deleteDesign: async (code) => {
+    set({ loading: true });
+    try {
+      const { data } = await axios.delete(`${url}/design/${code}`);
+      notifySuccess("ลบข้อมูลสำเร็จ");
+      set((state) => ({
+        ...state,
+        loading: false,
+        res: data.message,
+      }));
+    } catch (error) {
+      notify(error.response.data.message);
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
+  },
 }));
 
 export default useDesignStore;
