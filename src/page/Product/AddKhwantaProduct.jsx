@@ -107,7 +107,7 @@ const AddKhwantaProduct = () => {
   };
   return (
     <div className="px-10 pb-20 ">
-      <h1 className="text-3xl text-primary ">เพิ่มแบบเสื้อผ้า</h1>
+      <h1 className="text-3xl text-primary ">เพิ่มสินค้า Khwanta</h1>
       {addData && (
         <>
           <AddKhwantaInfo data={addData} disable={disablebutton} />

@@ -102,7 +102,7 @@ const AddExampleProduct = () => {
   };
   return (
     <div className="px-10 pb-20 ">
-      <h1 className="text-3xl text-primary ">เพิ่มแบบเสื้อผ้า</h1>
+      <h1 className="text-3xl text-primary ">เพิ่มสินค้าตัวอย่าง</h1>
       {addData && (
         <>
           <AddExampleInfo data={addData} disable={disablebutton} />

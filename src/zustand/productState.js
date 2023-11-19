@@ -400,6 +400,41 @@ const useProductStore = create((set, get) => ({
       }));
     }
   },
+  deleteProduct: async (id) => {
+    const state = get();
+    set({ loading: true });
+    try {
+      const { data } = await axios.delete(`${url}/product/${id}`);
+      notifySuccess("ลบสินค้าสำเร็จ");
+      set((state) => ({
+        ...state,
+        loading: false,
+        singledata: null,
+        res: "delete success",
+      }));
+    } catch (error) {
+      console.log(error);
+      set((state) => ({
+        ...state,
+        loading: false,
+        error: error.response.data.message,
+      }));
+    }
+  },
+  reset: () => {
+    set({
+      loading: false,
+      singledata: null,
+      pageAll: 0,
+      product: [],
+      error: null,
+      query: [],
+      addData: null,
+      productData: {},
+      res: {},
+      DetailImage: "",
+    });
+  },
 }));
 
 export default useProductStore;

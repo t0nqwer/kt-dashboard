@@ -104,7 +104,7 @@ const AddClothProduct = () => {
   };
   return (
     <div className="px-10 pb-20 ">
-      <h1 className="text-3xl text-primary ">เพิ่มแบบเสื้อผ้า</h1>
+      <h1 className="text-3xl text-primary ">เพิ่มสินค้าเสื้อผ้า</h1>
       {addData && (
         <>
           <AddClothInfo data={addData} disable={disablebutton} />

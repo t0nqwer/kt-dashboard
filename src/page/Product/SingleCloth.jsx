@@ -5,9 +5,12 @@ import { Sizetable } from "../../components";
 import { BiEditAlt, BiPlus } from "react-icons/bi";
 import useProductStore from "../../zustand/productState";
 import { Thai } from "../../function/currency";
+import { FaDownload } from "react-icons/fa6";
 import { AiOutlineClose } from "react-icons/ai";
-
+import { storage } from "../../firebase";
+import { ref, getDownloadURL } from "firebase/storage";
 import useModalControlState from "../../zustand/modalControlState";
+import useUserState from "../../zustand/userState";
 
 const SingleCloth = () => {
   const navigate = useNavigate();
@@ -15,6 +18,8 @@ const SingleCloth = () => {
   const [Sizedata, setSizedata] = useState([]);
   const [SizeList, setSizeList] = useState([]);
   ////////////////////////////////
+  const user = useUserState((state) => state.user);
+
   const setLoad = useAppState((state) => state.setLoad);
   const loading = useProductStore((state) => state.loading);
   const singledata = useProductStore((state) => state.singledata);
@@ -24,9 +29,12 @@ const SingleCloth = () => {
   );
   const addDetailImage = useProductStore((state) => state.addDetailImage);
   const setDetailImage = useProductStore((state) => state.setDetailImage);
+  const deleteProduct = useProductStore((state) => state.deleteProduct);
   const setDeleteProductDetailImage = useModalControlState(
     (state) => state.setDeleteProductDetailImage
   );
+  const res = useProductStore((state) => state.res);
+  const reset = useProductStore((state) => state.reset);
   ////////////////////////////////
   useEffect(() => {
     fetchSingleCloth(id);
@@ -44,6 +52,32 @@ const SingleCloth = () => {
     console.log(singledata);
     addDetailImage(e.target.files[0], singledata?._id);
   };
+  const submitdata = () => {
+    navigate("/product/cloth");
+  };
+  useEffect(() => {
+    if (res === "delete success") {
+      reset();
+      navigate("/product/cloth");
+    }
+  }, [res]);
+  // const downlondImage = (url) => {
+  //   const Storageref = ref(storage, url);
+  //   getDownloadURL(Storageref)
+  //     .then((url) => {
+  //       const xhr = new XMLHttpRequest();
+  //       xhr.responseType = "blob";
+  //       xhr.onload = (event) => {
+  //         const blob = xhr.response;
+  //       };
+  //       xhr.open("GET", url);
+  //       xhr.send();
+  //     })
+  //     .catch((error) => {
+  //       // Handle any errors
+  //       alert("error");
+  //     });
+  // };
   ////////////////////////////////
   return (
     <div className="px-10 pb-10 ">
@@ -51,6 +85,12 @@ const SingleCloth = () => {
         {/* Image */}
         <div>
           <div className="w-[315px] h-[420px] relative rounded overflow-hidden bg-secondary-cream">
+            {/* <span
+              className="absolute z-40 text-xl cursor-pointer text-primary top-3 right-3"
+              onClick={() => downlondImage(singledata?.frontImage)}
+            >
+              <FaDownload className="" />
+            </span> */}
             <img
               src={singledata?.frontImage}
               className="absolute object-contain w-full h-full "
@@ -161,6 +201,26 @@ const SingleCloth = () => {
                   />
                 </div>
               ))}
+            </div>
+            <div className="mt-5 border-t border-primary">
+              <div className="flex justify-end w-full mt-5 space-x-5 ">
+                <button
+                  id="submit"
+                  className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                  onClick={submitdata}
+                >
+                  Back
+                </button>
+                {user?.priority >= 1 && (
+                  <button
+                    id="submit"
+                    className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                    onClick={() => deleteProduct(id)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

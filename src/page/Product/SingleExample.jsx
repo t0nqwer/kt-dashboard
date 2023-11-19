@@ -6,11 +6,13 @@ import useProductStore from "../../zustand/productState";
 import { Thai } from "../../function/currency";
 import useModalControlState from "../../zustand/modalControlState";
 import { AiOutlineClose } from "react-icons/ai";
+import useUserState from "../../zustand/userState";
 
 const SingleExample = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   ////////////////////////////////
+  const user = useUserState((state) => state.user);
   const setLoad = useAppState((state) => state.setLoad);
   const loading = useProductStore((state) => state.loading);
   const singledata = useProductStore((state) => state.singledata);
@@ -22,9 +24,13 @@ const SingleExample = () => {
   );
   const addDetailImage = useProductStore((state) => state.addDetailImage);
   const setDetailImage = useProductStore((state) => state.setDetailImage);
+  const deleteProduct = useProductStore((state) => state.deleteProduct);
+
   const setDeleteProductDetailImage = useModalControlState(
     (state) => state.setDeleteProductDetailImage
   );
+  const res = useProductStore((state) => state.res);
+  const reset = useProductStore((state) => state.reset);
   ///////////////////////////////
   useEffect(() => {
     fetchSingleKhwanta(id);
@@ -39,6 +45,15 @@ const SingleExample = () => {
     console.log(singledata);
     addDetailImage(e.target.files[0], singledata?._id);
   };
+  const submitdata = () => {
+    navigate("/product/example");
+  };
+  useEffect(() => {
+    if (res === "delete success") {
+      reset();
+      navigate("/product/example");
+    }
+  }, [res]);
   ////////////////////////////////
   return (
     <div className="px-10 pb-10 ">
@@ -131,6 +146,26 @@ const SingleExample = () => {
                   />
                 </div>
               ))}
+            </div>
+            <div className="mt-5 border-t border-primary">
+              <div className="flex justify-end w-full mt-5 space-x-5 ">
+                <button
+                  id="submit"
+                  className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                  onClick={submitdata}
+                >
+                  Back
+                </button>
+                {user?.priority >= 1 && (
+                  <button
+                    id="submit"
+                    className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
+                    onClick={() => deleteProduct(id)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
