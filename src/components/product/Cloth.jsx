@@ -36,6 +36,7 @@ const Cloth = () => {
   ////////////////////////////////
   useEffect(() => {
     setProduct([]);
+    // fetchClothProduct(page, search, query);
   }, []);
   useEffect(() => {
     fetchClothProduct(page, search, query);
