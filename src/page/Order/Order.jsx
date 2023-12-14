@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 const Order = () => {
   const navigate = useNavigate();
   const createOrder = () => {
-    navigate("/order/create");
+    navigate("/sale/order/create");
   };
   const queryOrder = (e) => {
-    console.log(e.target.innerHTML);
-    navigate(`/order?order_filter=${e.target.innerHTML}`);
+    navigate(`/sale/order?order_filter=${e.target.innerHTML}`);
   };
   return (
     <div className="mt-10 maindiv">
@@ -22,7 +21,7 @@ const Order = () => {
           สร้างออเดอร์
         </button>
       </div>
-      <ul className="flex justify-center w-full mt-10 space-x-10 text-center">
+      <ul className="flex justify-center w-full mt-10 space-x-10 text-center select-none">
         <li
           className="px-3 py-2 font-semibold outline outline-1 hover:outline-0 outline-primary hover:bg-primary hover:text-white"
           onClick={queryOrder}

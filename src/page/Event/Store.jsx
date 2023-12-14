@@ -27,7 +27,7 @@ const Store = () => {
           <button
             id="submit"
             className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "
-            onClick={() => navigate("/shop/addEvent")}
+            onClick={() => navigate("/sale/shop/addEvent")}
           >
             สร้าง Event
           </button>
