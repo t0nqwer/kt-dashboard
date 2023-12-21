@@ -21,7 +21,7 @@ const TransferProduct = () => {
   const navigate = useNavigate();
   return (
     <div className="maindiv">
-      <div className="flex">
+      <div className="flex justify-between w-full">
         <h1 className="text-3xl text-primary">รายการส่งสินค้า</h1>
         <button
           className="w-32 px-4 py-2 text-white rounded-md h-fit bg-primary hover:bg-opacity-80 disabled:bg-secondary-gray "

@@ -144,24 +144,28 @@ const SingleDesign = () => {
                 </label>
               </div>
               <div className="w-full h-[300px] mt-3 overflow-y-scroll bg-secondary-cream flex flex-wrap ">
-                {singledata.design.DetailImage.map((item) => (
-                  <div key={item} className="relative w-[210px] h-[280px] p-3">
+                {singledata?.design?.DetailImage &&
+                  singledata?.design?.DetailImage.map((item) => (
                     <div
-                      className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 "
-                      onClick={() => {
-                        setDetailImage(item);
-                        setDeleteDesignDetailImage(true);
-                      }}
+                      key={item}
+                      className="relative w-[210px] h-[280px] p-3"
                     >
-                      <AiOutlineClose />
+                      <div
+                        className="absolute p-1 text-xs text-red-800 rounded-full top-5 right-5 outline outline-primary outline-1 hover:text-white hover:bg-primary hover:scale-125 "
+                        onClick={() => {
+                          setDetailImage(item);
+                          setDeleteDesignDetailImage(true);
+                        }}
+                      >
+                        <AiOutlineClose />
+                      </div>
+                      <img
+                        src={item}
+                        className="object-cover w-full h-full"
+                        alt=""
+                      />
                     </div>
-                    <img
-                      src={item}
-                      className="object-cover w-full h-full"
-                      alt=""
-                    />
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
             <div className="mt-5 border-t border-primary">
