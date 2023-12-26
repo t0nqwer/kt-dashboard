@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Logo from "../assets/Logo";
-import { links, newlinks } from "../assets/sidebar";
+import { newlinks } from "../assets/sidebar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAppState } from "../zustand/appState";
 import useUserState from "../zustand/userState";

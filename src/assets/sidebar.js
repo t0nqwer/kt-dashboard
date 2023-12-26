@@ -14,111 +14,9 @@ import {
   MdShoppingCart,
   MdDesignServices,
 } from "react-icons/md";
+import { RiBillLine } from "react-icons/ri";
 import { BsShop } from "react-icons/bs";
 
-export const links = [
-  {
-    title: "Dashboard",
-    links: [
-      {
-        name: "dashboard",
-        icon: <MdDashboard />,
-        pathname: "Dashboard",
-      },
-    ],
-  },
-
-  {
-    title: "แบบเสื้อผ้า",
-    links: [
-      {
-        name: "ดูแบบเสื้อผ้า",
-        icon: <MdOutlineDesignServices />,
-        pathname: "DesignList",
-      },
-      {
-        name: "เพิ่มแบบเสื้อผ้า",
-        icon: <MdPlaylistAdd />,
-        pathname: "AddDesign",
-      },
-    ],
-  },
-  {
-    title: "สินค้า",
-    links: [
-      {
-        name: "รายการเสื้อผ้า",
-        icon: <AiOutlineUnorderedList />,
-        pathname: "ProductClothList",
-      },
-      {
-        name: "รายการสินค้าอื่นๆ",
-        icon: <AiOutlineUnorderedList />,
-        pathname: "ProductList",
-      },
-      {
-        name: "สินค้าตัวอย่าง",
-        icon: <AiOutlineUnorderedList />,
-        pathname: "ExampleList",
-      },
-    ],
-  },
-  {
-    title: "เพิ่มสินค้า",
-    links: [
-      {
-        name: "เพิ่มสินค้าเสื้อผ้าขวัญตา",
-        icon: <GiClothes />,
-        pathname: "AddClothproduct",
-      },
-      {
-        name: "เพิ่มสินค้าตัวอย่าง",
-        icon: <GiClothes />,
-        pathname: "AddExample",
-      },
-      {
-        name: "เพิ่มสินค้าขวัญตา",
-        icon: <MdAddShoppingCart />,
-        pathname: "AddKhwantaProduct",
-      },
-      {
-        name: "เพิ่มสินค้ารับซื้อ",
-        icon: <MdOutlineImportExport />,
-        pathname: "AddImportProduct",
-      },
-      {
-        name: "เพิ่มผู้ส่งสินค้า",
-        icon: <MdOutlineImportExport />,
-        pathname: "AddSupplier",
-      },
-    ],
-  },
-  {
-    title: "ผ้า",
-    links: [
-      {
-        name: "รายการ",
-        icon: <GiRolledCloth />,
-        pathname: "Fabric",
-      },
-      {
-        name: "เพิ่มผ้า",
-        icon: <GiRolledCloth />,
-        pathname: "AddFabric",
-      },
-      {
-        name: "เพิ่มเทคนิคการทอ",
-        icon: <GiRolledCloth />,
-        pathname: "AddFabricWeaving",
-      },
-      {
-        name: "เพิ่มลายผ้า",
-        icon: <GiRolledCloth />,
-        pathname: "AddFabricPattern",
-      },
-    ],
-  },
-];
 export const newlinks = [
   {
     title: "Dashboard",
@@ -208,6 +106,11 @@ export const newlinks = [
     pathname: "sale",
     priority: 0,
     subMenu: [
+      {
+        title: "บิล",
+        icon: <RiBillLine />,
+        pathname: "/sale/bill",
+      },
       {
         title: "ออเดอร์",
         icon: <AiOutlineUnorderedList />,
