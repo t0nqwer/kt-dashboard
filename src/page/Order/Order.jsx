@@ -10,7 +10,7 @@ const Order = () => {
     navigate(`/sale/order?order_filter=${e.target.innerHTML}`);
   };
   return (
-    <div className="mt-10 maindiv">
+    <div className="maindiv">
       <div className="flex justify-between">
         <h1 className="text-3xl text-primary">Order</h1>
         <button
