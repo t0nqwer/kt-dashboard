@@ -48,6 +48,8 @@ export { default as CreateTransfer } from "./Stock/CreateTransfer";
 /////CUSTOMER/////////////////////////////////
 ////////////////////////////////////////////
 export { default as Customer } from "./Customer/Customer";
+export { default as AddCustomer } from "./Customer/AddCustomer";
+export { default as CustomerById } from "./Customer/CustomerById";
 ////////////////////////////////////////////
 /////CUSTOMER/////////////////////////////////
 ////////////////////////////////////////////

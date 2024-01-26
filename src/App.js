@@ -12,6 +12,7 @@ import {
 import { ToastContainer, Flip } from "react-toastify";
 import {
   AddClothProduct,
+  AddCustomer,
   AddDesign,
   AddEvent,
   AddExampleProduct,
@@ -146,6 +147,8 @@ function App() {
               <Route path="sale/shop" element={<Store />} />
               <Route path="sale/shop/addEvent" element={<AddEvent />} />
               <Route path="sale/customer" element={<Customer />} />
+              <Route path="sale/customer/create" element={<AddCustomer />} />
+
               <Route path="sale/promotion" element={<Promotion />} />
               <Route path="stock" element={<Stock />} />
               <Route path="stock/transfer" element={<TransferProduct />} />
