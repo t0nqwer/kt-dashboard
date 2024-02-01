@@ -22,16 +22,20 @@ const AddCustomer = () => {
     lineid: "",
     facebook: "",
     instagram: "",
+    image: "",
   });
+  const [alertDuplicateName, setAlertDuplicateName] = useState(false);
+  const [alertDuplicateNameEng, setAlertDuplicateNameEng] = useState(false);
+  const [alertDuplicatePhone, setAlertDuplicatePhone] = useState(false);
+  const [alertDuplicateEmail, setAlertDuplicateEmail] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   useEffect(() => {
     fetchCustomers();
   }, []);
-
   useEffect(() => {
     setLoad(loading);
   }, [loading]);
-
   useEffect(() => {
     if (res === "success") {
       useCustomerStore.setState({
@@ -44,6 +48,67 @@ const AddCustomer = () => {
     }
   }, [res]);
 
+  useEffect(() => {
+    const checkThaiName = customers.filter(
+      (customer) =>
+        customer.firstName === data.thaifirstname &&
+        customer.lastName === data.thailastname
+    );
+    const checkEngName = customers.filter(
+      (customer) =>
+        customer.EngfirstName === data.engfirstname &&
+        customer.EnglastName === data.englastname
+    );
+    const checkPhone = customers.filter(
+      (customer) => customer.phone === data.phone
+    );
+    const checkEmail = customers.filter(
+      (customer) => customer.email === data.email
+    );
+    if (checkThaiName.length > 0) {
+      setAlertDuplicateName(true);
+    } else {
+      setAlertDuplicateName(false);
+    }
+    if (checkEngName.length > 0) {
+      setAlertDuplicateNameEng(true);
+    } else {
+      setAlertDuplicateNameEng(false);
+    }
+    if (checkPhone.length > 0) {
+      setAlertDuplicatePhone(true);
+    } else {
+      setAlertDuplicatePhone(false);
+    }
+    if (checkEmail.length > 0) {
+      setAlertDuplicateEmail(true);
+    } else {
+      setAlertDuplicateEmail(false);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (
+      alertDuplicateName ||
+      alertDuplicateNameEng ||
+      alertDuplicatePhone ||
+      alertDuplicateEmail
+    ) {
+      setButtonDisabled(true);
+    } else {
+      setButtonDisabled(false);
+    }
+    console.log(
+      alertDuplicateName,
+      alertDuplicateNameEng,
+      alertDuplicatePhone,
+      alertDuplicateEmail
+    );
+  }, [
+    alertDuplicateName,
+    alertDuplicateNameEng,
+    alertDuplicatePhone,
+    alertDuplicateEmail,
+  ]);
   const handleSubmit = (e) => {
     e.preventDefault();
     createCustomer(data);
@@ -56,12 +121,16 @@ const AddCustomer = () => {
       </div>
       <form className="mt-5 " onSubmit={handleSubmit}>
         <div className="w-full px-3 pb-2 mb-3 text-xl text-gray-400 border-b border-gray-400">
-          <span>ข้อมูลส่วนตัว</span>
+          <span>ข้อมูลส่วนตัว</span>{" "}
         </div>
-
         <div className="flex flex-wrap w-full">
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">ชื่อจริง (ภาษาไทย) :</label>
+            <label className="twoBlockFormLable">
+              ชื่อจริง (ภาษาไทย)
+              {alertDuplicateName && (
+                <span className="text-red-500"> ชื่อนี้มีในระบบแล้ว</span>
+              )}
+            </label>
             <input
               className="twoBlockFormInput"
               type="text"
@@ -73,7 +142,7 @@ const AddCustomer = () => {
             />
           </div>
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">นามสกุล (ภาษาไทย) :</label>
+            <label className="twoBlockFormLable">นามสกุล (ภาษาไทย)</label>
             <input
               className="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none"
               type="text"
@@ -85,7 +154,12 @@ const AddCustomer = () => {
             />
           </div>
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">ชื่อจริง (ภาษาอังกฤษ) :</label>
+            <label className="twoBlockFormLable">
+              ชื่อจริง (ภาษาอังกฤษ)
+              {alertDuplicateNameEng && (
+                <span className="text-red-500"> ชื่อนี้มีในระบบแล้ว</span>
+              )}
+            </label>
             <input
               className="twoBlockFormInput"
               type="text"
@@ -97,7 +171,7 @@ const AddCustomer = () => {
             />
           </div>
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">นามสกุล (ภาษาอังกฤษ) :</label>
+            <label className="twoBlockFormLable">นามสกุล (ภาษาอังกฤษ) </label>
             <input
               className="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none"
               type="text"
@@ -132,19 +206,34 @@ const AddCustomer = () => {
           <div className="twoBlockForm">
             <label className="twoBlockFormLable">ข้อมูลเพิ่มเติม</label>
             <textarea
-              className="twoBlockFormInput"
+              className="h-40 twoBlockFormInput"
               placeholder="ข้อมูลเพิ่มเติม"
               name="detail"
               onChange={(e) => setData({ ...data, detail: e.target.value })}
             ></textarea>
           </div>
+          {/* <div className=" twoBlockForm">
+            <div className="twoBlockFormLable">รูปภาพ</div>
+            <input
+              className="twoBlockFormInput"
+              type="file"
+              placeholder="รูปภาพ"
+              name="image"
+              onChange={(e) => setData({ ...data, image: e.target.value })}
+            />
+          </div> */}
         </div>
         <div className="flex flex-wrap w-full">
           <div className="w-full px-3 pb-2 mb-3 text-xl text-gray-400 border-b border-gray-400">
             <span>ช่องทางการติดต่อ</span>
           </div>
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">เบอร์โทรศัพท์ :</label>
+            <label className="twoBlockFormLable">
+              เบอร์โทรศัพท์
+              {alertDuplicatePhone && (
+                <span className="text-red-500 "> เบอร์นี้มีในระบบแล้ว</span>
+              )}
+            </label>
             <input
               className="twoBlockFormInput"
               type="text"
@@ -154,7 +243,7 @@ const AddCustomer = () => {
             />
           </div>
           <div className="twoBlockForm">
-            <label className="twoBlockFormLable">ที่อยู่ :</label>
+            <label className="twoBlockFormLable">ที่อยู่</label>
             <textarea
               className="twoBlockFormInput"
               placeholder="ที่อยู่"
@@ -163,7 +252,12 @@ const AddCustomer = () => {
             ></textarea>
           </div>
           <div className=" twoBlockForm">
-            <label className="twoBlockFormLable">email :</label>
+            <label className="twoBlockFormLable">
+              email
+              {alertDuplicateEmail && (
+                <span className="text-red-500"> อีเมล์นี้มีในระบบแล้ว</span>
+              )}
+            </label>
             <input
               className="twoBlockFormInput"
               type="email"
@@ -207,10 +301,11 @@ const AddCustomer = () => {
           <h1 className="text-red-500 ">* กรุณาตรวจสอบข้อมูลให้ถูกต้อง</h1>
 
           <input
-            className="px-10 py-2 text-white bg-green-500 rounded hover:bg-green-600 "
+            className="px-10 py-2 text-white bg-green-500 rounded hover:bg-green-600 disabled:bg-secondary-gray "
             type="submit"
             value="บันทึก"
             name="submit"
+            disabled={buttonDisabled}
           />
         </div>
       </form>

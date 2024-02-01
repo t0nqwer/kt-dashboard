@@ -21,9 +21,11 @@ import {
   AddPattern,
   AddWeaving,
   Bill,
+  CreateBill,
   CreateOrder,
   CreateTransfer,
   Customer,
+  CustomerById,
   Dashboard,
   Design,
   EditDesign,
@@ -143,11 +145,14 @@ function App() {
               <Route path="fabric/addweaving" element={<AddWeaving />} />
               <Route path="sale/order" element={<Order />} />
               <Route path="sale/bill" element={<Bill />} />
+              <Route path="sale/bill/create" element={<CreateBill />} />
               <Route path="sale/order/create" element={<CreateOrder />} />
               <Route path="sale/shop" element={<Store />} />
               <Route path="sale/shop/addEvent" element={<AddEvent />} />
+
               <Route path="sale/customer" element={<Customer />} />
               <Route path="sale/customer/create" element={<AddCustomer />} />
+              <Route path="sale/customer/:id" element={<CustomerById />} />
 
               <Route path="sale/promotion" element={<Promotion />} />
               <Route path="stock" element={<Stock />} />

@@ -32,7 +32,9 @@ export { default as AddWeaving } from "./Fabric/AddWeaving";
 /////ORDER/////////////////////////////////
 ////////////////////////////////////////////
 export { default as CreateOrder } from "./Order/CreateOrder";
+export { default as SingleOrder } from "./Order/SingleOrder";
 export { default as Bill } from "./Bill/Bill";
+export { default as CreateBill } from "./Bill/CreateBill";
 ////////////////////////////////////////////
 /////STORE/////////////////////////////////
 ////////////////////////////////////////////

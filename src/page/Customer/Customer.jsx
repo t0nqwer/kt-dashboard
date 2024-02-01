@@ -29,6 +29,7 @@ const Customer = () => {
         <table className="w-full text-center table-auto">
           <thead className="text-white bg-primary">
             <tr>
+              <th className="py-2">รหัสลูกค้า</th>
               <th className="py-2">ชื่อลูกค้า</th>
               <th className="py-2">เบอร์โทร</th>
               <th className="py-2">ที่อยู่</th>
@@ -38,6 +39,7 @@ const Customer = () => {
           <tbody>
             {customers.map((customer, index) => (
               <tr key={customer._id}>
+                <td className="py-2">{customer.CustomerId}</td>
                 <td className="py-2">{`${customer.firstName}  ${customer.lastName}`}</td>
                 <td className="py-2">{customer.phone}</td>
                 <td className="py-2">{customer.address}</td>
