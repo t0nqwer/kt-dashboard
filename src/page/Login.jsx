@@ -13,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const user = useUserState((state) => state.user);
   const login = useUserState((state) => state.Login);
-  const loading = useAppState((state) => state.loading);
+  const loading = useUserState((state) => state.loading);
   const handleClick = (e) => {
     e.preventDefault();
     login(username, password);

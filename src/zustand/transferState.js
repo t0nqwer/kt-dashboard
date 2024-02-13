@@ -4,11 +4,11 @@ import { url } from "../assets/public";
 
 const useTransferStore = create((set) => ({
   loading: false,
-
   storeList: [],
   products: [],
   from: "",
   to: "",
+  transferList: [],
   fetchProduct: async (store) => {
     set((state) => ({ ...state, loading: true }));
     try {
@@ -61,6 +61,24 @@ const useTransferStore = create((set) => ({
       ...state,
       to: data,
     }));
+  },
+  fetchTransferList: async () => {
+    set((state) => ({ ...state, loading: true }));
+    try {
+      const { data } = await axios.get(`${url}/transfer`);
+      console.log(data);
+      set((state) => ({
+        ...state,
+        loading: false,
+        transferList: data,
+      }));
+    } catch (error) {
+      console.log(error.response.data.error);
+      set((state) => ({
+        ...state,
+        loading: false,
+      }));
+    }
   },
 }));
 

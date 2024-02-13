@@ -24,7 +24,7 @@ const Customer = () => {
           เพิ่มลูกค้า
         </button>
       </div>
-      {/* Table */
+      {/* Table */}
       <div className="mt-4 overflow-x-auto">
         <table className="w-full text-center table-auto">
           <thead className="text-white bg-primary">
