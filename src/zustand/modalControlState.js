@@ -6,6 +6,9 @@ const useModalControlState = create((set) => ({
   DeleteProductDetailImageModal: false,
   FabricPatternModal: false,
   FabricWeavingModal: false,
+  confirmTransferModal: false,
+  setConfirmTransferModal: (value) =>
+    set((state) => ({ ...state, confirmTransferModal: value })),
   setFabricPatternModal: (value) =>
     set((state) => ({ ...state, FabricPatternModal: value })),
   setFabricWeavingModal: (value) =>

@@ -66,3 +66,10 @@ export const uploadproductimage = (id, Front, Back, Detail, name) => {
   }
   return Promise.all(promises);
 };
+
+export const uploadTransferConfirmDoc = async (id, file) => {
+  const fileRef = ref(storage, `transfer/${id}`);
+  const uploadTask = await uploadBytes(fileRef, file);
+  const downloadURL = await getDownloadURL(uploadTask.ref);
+  return downloadURL;
+};

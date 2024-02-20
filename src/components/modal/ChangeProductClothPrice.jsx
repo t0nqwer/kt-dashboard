@@ -13,7 +13,7 @@ const ChangeProductClothPrice = () => {
   const updatePrice = useProductStore((state) => state.updatePrice);
 
   return (
-    <div className="absolute flex animate-fadein justify-center items-center top-0 left-0 w-screen h-screen p-10 rounded-md bg-primary backdrop-blur-lg bg-opacity-50 max-md:p-0 z-[10000]">
+    <div className="absolute flex animate-fadein justify-center items-center top-0 left-0 w-screen h-screen p-10 rounded-md bg-primary backdrop-blur-lg bg-opacity-50 max-md:p-0 z-[8888]">
       <div className="flex flex-col items-center justify-center w-1/2 h-1/2 bg-secondary-cream">
         <p className="text-3xl ">เปลี่ยนราคาสินค้า</p>
         <div className="h-12 mt-5 text-center ">

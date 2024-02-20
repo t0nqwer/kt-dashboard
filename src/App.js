@@ -53,28 +53,22 @@ import {
   DeleteDesignDetailImage,
   FabricPattern,
   FabricWeaving,
+  ConfirmTransfer,
 } from "./components/modal";
 import useUserState from "./zustand/userState";
 
 function App() {
   const isLoad = useAppState((state) => state.isLoad);
   // const scrollToTop = useAppState((state) => state.scrollToTop);
+  const {
+    deleteDesignDetailImage,
+    ChangeProductClothPriceModal,
+    DeleteProductDetailImageModal,
+    FabricPatternModal,
+    FabricWeavingModal,
+    confirmTransferModal,
+  } = useModalControlState();
 
-  const deleteDesignDetailImage = useModalControlState(
-    (state) => state.deleteDesignDetailImage
-  );
-  const ChangeProductClothPriceModal = useModalControlState(
-    (state) => state.ChangeProductClothPriceModal
-  );
-  const DeleteProductDetailImageModal = useModalControlState(
-    (state) => state.DeleteProductDetailImageModal
-  );
-  const FabricPatternModal = useModalControlState(
-    (state) => state.FabricPatternModal
-  );
-  const FabricWeavingModal = useModalControlState(
-    (state) => state.FabricWeavingModal
-  );
   useEffect(() => {
     document
       .getElementById("main")
@@ -85,7 +79,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="relative w-screen overflow-hidden">
-        {isLoad && <Loading />}
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -99,6 +92,8 @@ function App() {
           pauseOnHover
           theme="light"
         />
+        {isLoad && <Loading />}
+        {confirmTransferModal && <ConfirmTransfer />}
         {deleteDesignDetailImage && <DeleteDesignDetailImage />}
         {ChangeProductClothPriceModal && <ChangeProductClothPrice />}
         {DeleteProductDetailImageModal && <DeleteProductDetailImage />}

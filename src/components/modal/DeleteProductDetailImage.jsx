@@ -10,7 +10,7 @@ const DeleteProductDetailImage = () => {
   const deleteDetailImage = useProductStore((state) => state.deleteDetailImage);
   const setDetailImage = useProductStore((state) => state.setDetailImage);
   return (
-    <div className="absolute flex animate-fadein justify-center items-center top-0 left-0 w-screen h-screen p-10 rounded-md bg-primary backdrop-blur-lg bg-opacity-50 max-md:p-0 z-[10000]">
+    <div className="absolute flex animate-fadein justify-center items-center top-0 left-0 w-screen h-screen p-10 rounded-md bg-primary backdrop-blur-lg bg-opacity-50 max-md:p-0 z-[8888]">
       <div className="flex flex-col items-center justify-center w-1/2 h-1/2 bg-secondary-cream">
         <p className="text-3xl ">ต้องการลบรูปนี้หรือไม่</p>
         <div className="flex items-center justify-center ">

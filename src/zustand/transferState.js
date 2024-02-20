@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import { url } from "../assets/public";
+import { uploadTransferConfirmDoc } from "../function/uploadimage";
 
 const useTransferStore = create((set) => ({
   loading: false,
@@ -9,6 +10,13 @@ const useTransferStore = create((set) => ({
   from: "",
   to: "",
   transferList: [],
+  confirmId: "",
+  setConfirmId: (data) => {
+    set((state) => ({
+      ...state,
+      confirmId: data,
+    }));
+  },
   fetchProduct: async (store) => {
     set((state) => ({ ...state, loading: true }));
     try {
@@ -79,6 +87,22 @@ const useTransferStore = create((set) => ({
         loading: false,
       }));
     }
+  },
+  confirmTransfer: async (Id, File) => {
+    set((state) => ({ ...state, loading: true }));
+    try {
+      const imagedata = await uploadTransferConfirmDoc(Id, File);
+      console.log(imagedata);
+      const { data } = await axios.post(`${url}/transfer/confirm`, {
+        transferId: Id,
+        file: imagedata,
+      });
+      set((state) => ({
+        ...state,
+        loading: false,
+        transferList: data,
+      }));
+    } catch (error) {}
   },
 }));
 
